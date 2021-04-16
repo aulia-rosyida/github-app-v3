@@ -70,15 +70,14 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
         position = user.id
 
         var statusFav = user.isFavorited
-        // setStatusFav(statusFav)
-        log.d("POSISI USER :", "$position")
-        log.d("ISFAV USER :", "$statusFav")
-        // binding.favBtn.setOnClickListener{
-        //     statusFav = !statusFav
-        //     setStatusFav(statusFav)
-        //     user.isFavorited = statusFav
-        //     log.d("ISFAV USER :", "$statusFav")
-        // }
+         setStatusFav(statusFav)
+    
+         binding.favBtn.setOnClickListener{
+             statusFav = !statusFav
+             setStatusFav(statusFav)
+             user.isFavorited = statusFav
+             log.d("ISFAV USER :", "$statusFav")
+         }
     }
 
     override fun onDestroyView() {
