@@ -6,6 +6,7 @@ import kotlinx.parcelize.Parcelize
 
 @Parcelize
 data class User(
+    var id: Int = 0,
     @SerializedName("login")
     var username: String?,
     @SerializedName("name")
@@ -21,5 +22,6 @@ data class User(
     @SerializedName("following")
     var following: String?,
     @SerializedName("avatar_url")
-    var photo: String?
+    var photo: String?,
+    var isFavorited: Boolean = false
 ) : Parcelable
