@@ -31,7 +31,7 @@ class MainActivity : AppCompatActivity() {
     private var users = mutableListOf<User>()
 
     private var listUserAdapter = UserAdapter(users)
-    var dummyUser = User("Please try with another username","Sorry, this username could not been find", "", "","","","","")
+    var dummyUser = User(0,"Please try with another username","Sorry, this username could not been find", "", "","","","","")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -134,6 +134,9 @@ class MainActivity : AppCompatActivity() {
                 val dataObject = dataArray.getJSONObject(i)
                 val data = gson.fromJson(dataObject.toString(), User::class.java)
                 listUser.add(data)
+            }
+            for(i in 0 until listUser.size-1){
+                listUser[i].id = i
             }
 
             if(listUser.size == 0){
