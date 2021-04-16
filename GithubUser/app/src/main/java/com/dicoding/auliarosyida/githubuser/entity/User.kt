@@ -8,7 +8,7 @@ import kotlinx.parcelize.Parcelize
 data class User(
     var id: Int = 0,
     @SerializedName("login")
-    var username: String? = "",
+    var username: String = "",
     @SerializedName("name")
     var name: String?  = "",
     @SerializedName("location")
