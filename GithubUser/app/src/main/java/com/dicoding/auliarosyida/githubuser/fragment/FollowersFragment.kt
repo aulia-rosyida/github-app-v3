@@ -1,13 +1,14 @@
 package com.dicoding.auliarosyida.githubuser.fragment
 
-import android.os.Bundle
 import androidx.fragment.app.Fragment
+import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.auliarosyida.githubuser.BuildConfig
 import com.dicoding.auliarosyida.githubuser.R
 import com.dicoding.auliarosyida.githubuser.adapter.UserAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.FragmentFollowersBinding
@@ -17,6 +18,7 @@ import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import org.json.JSONArray
+import java.util.*
 
 class FollowersFragment : Fragment(R.layout.fragment_followers) {
 
@@ -76,7 +78,7 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
         if(index == 1) tab = "followers"
         else if(index == 2) tab = "following"
 
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token ${BuildConfig.GITHUB_TOKEN}")
         client.addHeader("User-Agent", "request")
         val url = "https://api.github.com/users/${uname}/${tab}"
 

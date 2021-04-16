@@ -9,8 +9,8 @@ import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.widget.Toast
 import androidx.appcompat.widget.SearchView
+import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.githubuser.adapter.UserAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.ActivityMainBinding
@@ -20,6 +20,7 @@ import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
@@ -94,7 +95,7 @@ class MainActivity : AppCompatActivity() {
     private fun getUsersApi() {
         binding.progressBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
-       client.addHeader("Authorization", "token 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")
+       client.addHeader("Authorization", "token ${BuildConfig.GITHUB_TOKEN}")
        client.addHeader("User-Agent", "request")
         val url = "https://api.github.com/search/users?q=$tempSearch"
 
@@ -158,7 +159,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getDetailUserApi(aUser: User) {
         val clientDetail = AsyncHttpClient()
-       clientDetail.addHeader("Authorization", "token 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")
+       clientDetail.addHeader("Authorization", "token ${BuildConfig.GITHUB_TOKEN}")
        clientDetail.addHeader("User-Agent", "request")
         val url = "https://api.github.com/users/${aUser.username}"
 

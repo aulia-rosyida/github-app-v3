@@ -54,13 +54,13 @@ class TabLayoutActivity : AppCompatActivity() {
     }
 
     // function to the button on press
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.getItemId()) {
+    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
             android.R.id.home -> {
                 finish()
                 return true
             }
         }
-        return super.onOptionsItemSelected(item)
+        return super.onOptionsItemSelected(menuItem)
     }
 }

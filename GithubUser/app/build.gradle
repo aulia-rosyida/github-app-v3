@@ -4,6 +4,12 @@ plugins {
     id 'kotlin-parcelize'
 }
 
+def getApiKey(){
+    def Properties props = new Properties()
+    props.load(new FileInputStream(new File('local.properties')))
+    return props['GITHUB_TOKEN']
+}
+
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.1"
@@ -24,6 +30,11 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    applicationVariants.all { variant ->
+        variant.buildConfigField "String", "GITHUB_TOKEN", "\""+getApiKey()+"\""
+    }
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
@@ -32,7 +43,8 @@ android {
         jvmTarget = '1.8'
     }
     buildFeatures {
-        viewBinding true
+        viewBinding = true
+        buildConfig = true
     }
 }
 
