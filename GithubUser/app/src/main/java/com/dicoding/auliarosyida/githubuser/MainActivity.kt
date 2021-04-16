@@ -92,7 +92,7 @@ class MainActivity : AppCompatActivity() {
     private fun getUsersApi() {
         binding.progressBar.visibility = View.VISIBLE
         val client = AsyncHttpClient()
-       client.addHeader("Authorization", "token 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")
+       client.addHeader("Authorization", "token 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")
        client.addHeader("User-Agent", "request")
         val url = "https://api.github.com/search/users?q=$tempSearch"
 
@@ -156,7 +156,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun getDetailUserApi(aUser: User) {
         val clientDetail = AsyncHttpClient()
-       clientDetail.addHeader("Authorization", "token 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")
+       clientDetail.addHeader("Authorization", "token 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")
        clientDetail.addHeader("User-Agent", "request")
         val url = "https://api.github.com/users/${aUser.username}"
 

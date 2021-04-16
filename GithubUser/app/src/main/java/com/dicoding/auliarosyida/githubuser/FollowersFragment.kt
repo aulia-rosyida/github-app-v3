@@ -73,7 +73,7 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
         if(index == 1) tab = "followers"
         else if(index == 2) tab = "following"
 
-        client.addHeader("Authorization", "token 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")
+        client.addHeader("Authorization", "token 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")
         client.addHeader("User-Agent", "request")
         val url = "https://api.github.com/users/${uname}/${tab}"
 
