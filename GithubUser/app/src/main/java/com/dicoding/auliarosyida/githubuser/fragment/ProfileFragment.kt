@@ -11,6 +11,7 @@ import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.githubuser.R
+import com.dicoding.auliarosyida.githubuser.adapter.FavoriteAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.FragmentProfileBinding
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract
 import com.dicoding.auliarosyida.githubuser.db.UserGithubHelper
@@ -63,7 +64,6 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
         binding.repo.text = getString(R.string.tag_repo)
         binding.follower.text = getString(R.string.tag_followers)
         binding.following.text = getString(R.string.tag_following)
-
         // val thisContext = requireContext()
 //        userGithubHelper = UserGithubHelper.getInstance(thisContext)
 //        userGithubHelper.open()
@@ -98,6 +98,13 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
 //            userGithubHelper.deleteById(position.toString()).toLong()
         }
     }
+
+//    fun requestAdd(){
+//        adapter.addItem(note)
+//        binding.rvNotes.smoothScrollToPosition(adapter.itemCount - 1)
+//
+//        showSnackbarMessage("Satu item berhasil ditambahkan")
+//    }
 
 //     private fun insertFavoriteUser() {
 //         val values = ContentValues()

@@ -3,6 +3,7 @@ package com.dicoding.auliarosyida.githubuser
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.ContactsContract
+import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.githubuser.adapter.FavoriteAdapter
@@ -19,11 +20,11 @@ import kotlinx.coroutines.launch
 
 class FavoritePageActivity : AppCompatActivity() {
 
-    private lateinit var adapter: FavoriteAdapter
     private lateinit var binding: ActivityFavoritePageBinding
 
     companion object {
         private const val EXTRA_STATE = "EXTRA_STATE"
+        lateinit var adapterFavPage: FavoriteAdapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -34,8 +35,8 @@ class FavoritePageActivity : AppCompatActivity() {
         supportActionBar?.title = "Favorite"
         binding.rvFavorites.layoutManager = LinearLayoutManager(this)
         binding.rvFavorites.setHasFixedSize(true)
-        adapter = FavoriteAdapter(this)
-        binding.rvFavorites.adapter = adapter
+        adapterFavPage = FavoriteAdapter(this)
+        binding.rvFavorites.adapter = adapterFavPage
 
         if (savedInstanceState == null) {
             // proses ambil data
@@ -43,14 +44,25 @@ class FavoritePageActivity : AppCompatActivity() {
         } else {
             val list = savedInstanceState.getParcelableArrayList<User>(EXTRA_STATE)
             if (list != null) {
-                adapter.listFavorites = list
+                adapterFavPage.listFavorites = list
             }
         }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(EXTRA_STATE, adapter.listFavorites)
+        outState.putParcelableArrayList(EXTRA_STATE, adapterFavPage.listFavorites)
+    }
+
+    // function to the button on press
+    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
+        when (menuItem.itemId) {
+            android.R.id.home -> {
+                finish()
+                return true
+            }
+        }
+        return super.onOptionsItemSelected(menuItem)
     }
 
     private fun loadNotesAsync() {
@@ -65,9 +77,9 @@ class FavoritePageActivity : AppCompatActivity() {
             binding.progressbarFavpage.visibility = View.INVISIBLE
             val notes = deferredNotes.await()
             if (notes.size > 0) {
-                adapter.listFavorites = notes
+                adapterFavPage.listFavorites = notes
             } else {
-                adapter.listFavorites = ArrayList()
+                adapterFavPage.listFavorites = ArrayList()
                 showSnackbarMessage("Tidak ada data saat ini")
             }
             userGithubHelper.close()
