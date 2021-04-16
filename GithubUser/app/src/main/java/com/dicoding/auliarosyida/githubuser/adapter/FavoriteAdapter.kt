@@ -6,14 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.githubuser.CustomClickListener
 import com.dicoding.auliarosyida.githubuser.FavAddUpdateActivity
 import com.dicoding.auliarosyida.githubuser.R
+import com.dicoding.auliarosyida.githubuser.TabLayoutActivity
 import com.dicoding.auliarosyida.githubuser.databinding.ItemRowUserBinding
 import com.dicoding.auliarosyida.githubuser.entity.User
+import com.loopj.android.http.AsyncHttpClient
 
 class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
@@ -60,6 +63,10 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
                         intent.putExtra(FavAddUpdateActivity.EXTRA_POSITION, position)
                         intent.putExtra(FavAddUpdateActivity.EXTRA_FAVORITE_USER, user)
                         activity.startActivityForResult(intent, FavAddUpdateActivity.REQUEST_UPDATE)
+//                        val moveWithObjectIntent = Intent(activity, TabLayoutActivity::class.java)
+//                        moveWithObjectIntent.putExtra(TabLayoutActivity.EXTRA_USER, user)
+//                        activity.startActivity(moveWithObjectIntent)
+                        AsyncHttpClient.log.d("Favorite Adapter :", "clicked pada posisi $position")
                         Toast.makeText(activity, "ke klik bang", Toast.LENGTH_SHORT).show()
                     }
                 }))

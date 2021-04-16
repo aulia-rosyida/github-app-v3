@@ -17,7 +17,7 @@ class FavAddUpdateActivity : AppCompatActivity() , View.OnClickListener {
     private var title: String = "User Favorite Detail"
     private var user: User? = null
     private var position: Int = 0
-    private lateinit var userGithubHelper: UserGithubHelper
+//    private lateinit var userGithubHelper: UserGithubHelper
     private lateinit var binding: ActivityTabLayoutBinding
     private var dummyFavorite = User(0,"You do not have any favorite user","", "", "","","","","")
 
@@ -38,8 +38,6 @@ class FavAddUpdateActivity : AppCompatActivity() , View.OnClickListener {
         binding = ActivityTabLayoutBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        userGithubHelper = UserGithubHelper.getInstance(applicationContext)
-        userGithubHelper.open()
         user = intent.getParcelableExtra(EXTRA_FAVORITE_USER)
         if (user != null) {
             position = intent.getIntExtra(EXTRA_POSITION, 0)

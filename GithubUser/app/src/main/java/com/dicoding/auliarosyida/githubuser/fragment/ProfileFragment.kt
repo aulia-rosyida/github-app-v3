@@ -8,24 +8,37 @@ import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.dicoding.auliarosyida.githubuser.FavAddUpdateActivity.Companion.RESULT_ADD
+import com.dicoding.auliarosyida.githubuser.FavoritePageActivity
 import com.dicoding.auliarosyida.githubuser.R
 import com.dicoding.auliarosyida.githubuser.adapter.FavoriteAdapter
+import com.dicoding.auliarosyida.githubuser.databinding.ActivityFavoritePageBinding
 import com.dicoding.auliarosyida.githubuser.databinding.FragmentProfileBinding
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract
 import com.dicoding.auliarosyida.githubuser.db.UserGithubHelper
 import com.dicoding.auliarosyida.githubuser.entity.User
+import com.dicoding.auliarosyida.githubuser.helper.MappingHelper
+import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.loopj.android.http.AsyncHttpClient.log
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
 
     private var _binding: FragmentProfileBinding? = null
+
     private val binding: FragmentProfileBinding
         get() = requireNotNull(_binding)
+
     var user: User = detailUser
-    private var position: Int = 0
-//    private lateinit var userGithubHelper: UserGithubHelper
+    var uname = detailUser.username
+    private lateinit var userGithubHelper: UserGithubHelper
 
     // companion object {
     //     const val EXTRA_NOTE = "extra_note"
@@ -64,21 +77,57 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
         binding.repo.text = getString(R.string.tag_repo)
         binding.follower.text = getString(R.string.tag_followers)
         binding.following.text = getString(R.string.tag_following)
-        // val thisContext = requireContext()
-//        userGithubHelper = UserGithubHelper.getInstance(thisContext)
-//        userGithubHelper.open()
-        position = user.id
 
         var statusFav = user.isFavorited
-         setStatusFav(statusFav)
-    
-         binding.favBtn.setOnClickListener{
-             statusFav = !statusFav
-             setStatusFav(statusFav)
-             user.isFavorited = statusFav
-             log.d("ISFAV USER :", "$statusFav")
-         }
+
+        //untuk cek sudah ada dalam db atau belum
+        GlobalScope.launch(Dispatchers.Main) {
+            val thisContext = requireContext()
+            userGithubHelper = UserGithubHelper.getInstance(thisContext)
+            userGithubHelper.open()
+
+            try {
+                val deferredNotes = async(Dispatchers.IO) {
+                    val cursor = userGithubHelper.queryByUname(uname)
+                    MappingHelper.mapCursorToArrayList(cursor)
+                    // cursor.close();
+                }
+                val deferredNotes2 = async(Dispatchers.IO) {
+                    val cursor = userGithubHelper.queryAll()
+                    MappingHelper.mapCursorToArrayList(cursor)
+                    // cursor.close();
+                }
+
+                val favorites = deferredNotes.await()
+                if (favorites.size > 0) {
+                    println("profile fragment : dia udah favorit isinya ${favorites.size}")
+                    user.isFavorited = true
+                    statusFav = true
+                    binding.favBtn.setColorFilter(Color.MAGENTA)
+                }
+
+                val favoritesAll = deferredNotes2.await()
+                if (favoritesAll.size > 0) {
+                    println("profile fragment : ada isinya ${favoritesAll.size}")
+                } else {
+                    println("profile fragment : kosongannnnnnn")
+                }
+            }finally {
+                userGithubHelper.close()
+            }
+        }
+
+//        if(statusFav || user.isFavorited) binding.favBtn.setColorFilter(Color.MAGENTA)
+
+        binding.favBtn.setOnClickListener {
+            statusFav = !statusFav
+            setStatusFav(statusFav)
+            user.isFavorited = statusFav
+            println("ISFAV USER : $statusFav")
+        }
     }
+
+    
 
     override fun onDestroyView() {
         // Do not store the binding instance in a field, if not required.
@@ -88,15 +137,37 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
     }
 
     private fun setStatusFav(status: Boolean) {
-        if (status) {
-            log.d("USER ADAPTER :", "STATUS ON")
-            binding.favBtn.setColorFilter(Color.MAGENTA)
-//            insertFavoriteUser()
-        } else {
-            log.d("USER ADAPTER :", "STATUS OFF")
-            binding.favBtn.setColorFilter(Color.GRAY)
-//            userGithubHelper.deleteById(position.toString()).toLong()
+        GlobalScope.launch(Dispatchers.Main) {
+            val thisContext = requireContext()
+            userGithubHelper = UserGithubHelper.getInstance(thisContext)
+            userGithubHelper.open()
+            try {
+                if (status) {
+                    println("USER ADAPTER : STATUS ON")
+                    binding.favBtn.setColorFilter(Color.MAGENTA)
+
+                    var valuesTemp = valueFavoriteUser()
+                    val insertResult = userGithubHelper.insert(valuesTemp)
+                    if (insertResult > 0) {
+                        Toast.makeText(thisContext, "Add to Favorite", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(thisContext, "Failed to Favorite", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    println("USER ADAPTER : STATUS OFF")
+                    binding.favBtn.setColorFilter(Color.GRAY)
+                    val deleteResult = userGithubHelper.deleteByUname(uname).toLong()
+                    if (deleteResult > 0) {
+                        Toast.makeText(thisContext, "delete from Favorite", Toast.LENGTH_SHORT).show()
+                    } else {
+                        Toast.makeText(thisContext, "Failed to Favorite", Toast.LENGTH_SHORT).show()
+                    }
+                }
+            }finally {
+                userGithubHelper.close()
+            }
         }
+
     }
 
 //    fun requestAdd(){
@@ -106,18 +177,19 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
 //        showSnackbarMessage("Satu item berhasil ditambahkan")
 //    }
 
-//     private fun insertFavoriteUser() {
-//         val values = ContentValues()
-//         values.put(UserDbContract.UserDbColumns.COL_USERNAME, user.username)
-//         values.put(UserDbContract.UserDbColumns.COL_NAME, user.name)
-//         values.put(UserDbContract.UserDbColumns.COL_LOCATION, user.location)
-//         values.put(UserDbContract.UserDbColumns.COL_REPOSITORY, user.repository)
-//         values.put(UserDbContract.UserDbColumns.COL_COMPANY, user.company)
-//         values.put(UserDbContract.UserDbColumns.COL_FOLLOWER, user.followers)
-//         values.put(UserDbContract.UserDbColumns.COL_FOLLOWING, user.following)
-//         values.put(UserDbContract.UserDbColumns.COL_PHOTO, user.photo)
-//         log.d("USER INSERT :", "masuk ke insert")
+     private fun valueFavoriteUser() : ContentValues{
+         val values = ContentValues()
+         values.put(UserDbContract.UserDbColumns.COL_USERNAME, user.username)
+         values.put(UserDbContract.UserDbColumns.COL_NAME, user.name)
+         values.put(UserDbContract.UserDbColumns.COL_LOCATION, user.location)
+         values.put(UserDbContract.UserDbColumns.COL_REPOSITORY, user.repository)
+         values.put(UserDbContract.UserDbColumns.COL_COMPANY, user.company)
+         values.put(UserDbContract.UserDbColumns.COL_FOLLOWER, user.followers)
+         values.put(UserDbContract.UserDbColumns.COL_FOLLOWING, user.following)
+         values.put(UserDbContract.UserDbColumns.COL_PHOTO, user.photo)
+         println("USER INSERT : masuk ke valueFavoriteUser")
+         return values
 
-// //        userGithubHelper.insert(values)
-//     }
+ //        userGithubHelper.insert(values)
+     }
 }

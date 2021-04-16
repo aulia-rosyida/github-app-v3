@@ -37,6 +37,7 @@ class FavoritePageActivity : AppCompatActivity() {
         binding.rvFavorites.setHasFixedSize(true)
         adapterFavPage = FavoriteAdapter(this)
         binding.rvFavorites.adapter = adapterFavPage
+        binding.rvFavorites.adapter?.notifyDataSetChanged()
 
         if (savedInstanceState == null) {
             // proses ambil data
@@ -47,6 +48,8 @@ class FavoritePageActivity : AppCompatActivity() {
                 adapterFavPage.listFavorites = list
             }
         }
+
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -73,6 +76,7 @@ class FavoritePageActivity : AppCompatActivity() {
             val deferredNotes = async(Dispatchers.IO) {
                 val cursor = userGithubHelper.queryAll()
                 MappingHelper.mapCursorToArrayList(cursor)
+//                cursor.close();
             }
             binding.progressbarFavpage.visibility = View.INVISIBLE
             val notes = deferredNotes.await()
