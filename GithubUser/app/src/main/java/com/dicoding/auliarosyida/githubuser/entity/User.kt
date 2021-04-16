@@ -8,20 +8,20 @@ import kotlinx.parcelize.Parcelize
 data class User(
     var id: Int = 0,
     @SerializedName("login")
-    var username: String?,
+    var username: String? = "",
     @SerializedName("name")
-    var name: String?,
+    var name: String?  = "",
     @SerializedName("location")
-    var location: String?,
+    var location: String?  = "",
     @SerializedName("public_repos")
-    var repository: String?,
+    var repository: String?  = "",
     @SerializedName("company")
-    var company: String?,
+    var company: String?  = "",
     @SerializedName("followers")
-    var followers: String?,
+    var followers: String?  = "",
     @SerializedName("following")
-    var following: String?,
+    var following: String?  = "",
     @SerializedName("avatar_url")
-    var photo: String?,
+    var photo: String?  = "",
     var isFavorited: Boolean = false
 ) : Parcelable

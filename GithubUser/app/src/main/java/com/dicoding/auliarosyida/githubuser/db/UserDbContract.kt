@@ -15,6 +15,7 @@ internal class UserDbContract {
             const val COL_FOLLOWER = "followers"
             const val COL_FOLLOWING = "following"
             const val COL_PHOTO = "avatar_url"
+            const val COL_IS_FAVORITED = "is_favorited"
         }
     }
 }

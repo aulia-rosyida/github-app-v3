@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.githubuser.CustomClickListener
+import com.dicoding.auliarosyida.githubuser.FavAddUpdateActivity
 import com.dicoding.auliarosyida.githubuser.R
 import com.dicoding.auliarosyida.githubuser.databinding.ItemRowUserBinding
 import com.dicoding.auliarosyida.githubuser.entity.User
@@ -56,10 +57,10 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
 
                 itemView.setOnClickListener(CustomClickListener(adapterPosition, object : CustomClickListener.OnItemClickCallback {
                     override fun onItemClicked(view: View, position: Int) {
-//                        val intent = Intent(activity, NoteAddUpdateActivity::class.java)
-//                        intent.putExtra(NoteAddUpdateActivity.EXTRA_POSITION, position)
-//                        intent.putExtra(NoteAddUpdateActivity.EXTRA_FAVUSER, user)
-//                        activity.startActivityForResult(intent, NoteAddUpdateActivity.REQUEST_UPDATE)
+                        val intent = Intent(activity, FavAddUpdateActivity::class.java)
+                        intent.putExtra(FavAddUpdateActivity.EXTRA_POSITION, position)
+                        intent.putExtra(FavAddUpdateActivity.EXTRA_FAVORITE_USER, user)
+                        activity.startActivityForResult(intent, FavAddUpdateActivity.REQUEST_UPDATE)
                         Toast.makeText(activity, "ke klik bang", Toast.LENGTH_SHORT).show()
                     }
                 }))
