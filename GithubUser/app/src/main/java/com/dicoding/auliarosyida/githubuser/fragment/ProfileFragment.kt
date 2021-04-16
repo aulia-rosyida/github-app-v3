@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.githubuser
+package com.dicoding.auliarosyida.githubuser.fragment
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -7,7 +7,9 @@ import android.view.View
 import android.view.ViewGroup
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
+import com.dicoding.auliarosyida.githubuser.R
 import com.dicoding.auliarosyida.githubuser.databinding.FragmentProfileBinding
+import com.dicoding.auliarosyida.githubuser.entity.User
 
 class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
 

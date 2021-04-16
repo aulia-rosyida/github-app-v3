@@ -1,8 +1,11 @@
-package com.dicoding.auliarosyida.githubuser
+package com.dicoding.auliarosyida.githubuser.adapter
 
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.viewpager2.adapter.FragmentStateAdapter
+import com.dicoding.auliarosyida.githubuser.entity.User
+import com.dicoding.auliarosyida.githubuser.fragment.FollowersFragment
+import com.dicoding.auliarosyida.githubuser.fragment.ProfileFragment
 
 class SectionsPagerAdapter(activity: AppCompatActivity, detailUser: User) : FragmentStateAdapter(activity) {
 

@@ -4,7 +4,9 @@ import android.os.Bundle
 import android.view.MenuItem
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import com.dicoding.auliarosyida.githubuser.adapter.SectionsPagerAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.ActivityTabLayoutBinding
+import com.dicoding.auliarosyida.githubuser.entity.User
 import com.google.android.material.tabs.TabLayoutMediator
 
 
