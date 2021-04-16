@@ -157,11 +157,11 @@ class MainActivity : AppCompatActivity() {
             e.printStackTrace()
         }
     }
-
     private fun showRecyclerList(usersTemp: MutableList<User>) {
         listUserAdapter = UserAdapter(usersTemp)
         binding.rvList.adapter?.notifyDataSetChanged();
     }
+
 
     private fun getDetailUserApi(aUser: User, position: Int) {
         val clientDetail = AsyncHttpClient()
