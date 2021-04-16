@@ -1,5 +1,6 @@
 package com.dicoding.auliarosyida.githubuser.fragment
 
+import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
@@ -10,6 +11,7 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.githubuser.R
 import com.dicoding.auliarosyida.githubuser.databinding.FragmentProfileBinding
 import com.dicoding.auliarosyida.githubuser.entity.User
+import com.loopj.android.http.AsyncHttpClient.log
 
 class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
 
@@ -42,11 +44,28 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
         binding.repo.text = getString(R.string.tag_repo)
         binding.follower.text = getString(R.string.tag_followers)
         binding.following.text = getString(R.string.tag_following)
+
+        var statusFav = false
+        setStatusFav(statusFav)
+        binding.favBtn.setOnClickListener{
+            statusFav = !statusFav
+            setStatusFav(statusFav)
+        }
     }
 
     override fun onDestroyView() {
         // Do not store the binding instance in a field, if not required.
         super.onDestroyView()
         _binding = null
+    }
+
+    private fun setStatusFav(status: Boolean) {
+        if (status) {
+            log.d("USER ADAPTER :", "STATUS ON")
+            binding.favBtn.setColorFilter(Color.MAGENTA)
+        } else {
+            log.d("USER ADAPTER :", "STATUS OFF")
+            binding.favBtn.setColorFilter(Color.GRAY)
+        }
     }
 }
