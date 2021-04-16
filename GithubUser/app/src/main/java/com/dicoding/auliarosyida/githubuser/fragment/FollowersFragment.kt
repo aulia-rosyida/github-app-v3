@@ -28,8 +28,8 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
 
     private var users = mutableListOf<User>()
     private var listUserAdapter = UserAdapter(users)
-    private var dummyFollower = User("This user has 0 of Follower","", "", "","","","","")
-    private var dummyFollowing = User("This user has 0 of Following","", "", "","","","","")
+    private var dummyFollower = User(0,"This user has 0 of Follower","", "", "","","","","")
+    private var dummyFollowing = User(0,"This user has 0 of Following","", "", "","","","","")
 
     var tab = ""
 
