@@ -17,6 +17,7 @@ import com.dicoding.auliarosyida.githubuser.databinding.ActivityMainBinding
 import com.dicoding.auliarosyida.githubuser.entity.User
 import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
+import com.loopj.android.http.AsyncHttpClient.log
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
@@ -49,7 +50,7 @@ class MainActivity : AppCompatActivity() {
 
         listUserAdapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback{
             override fun onItemClicked(data: User) {
-                getDetailUserApi(data)
+                getDetailUserApi(data, data.id)
             }
         })
     }
@@ -133,10 +134,8 @@ class MainActivity : AppCompatActivity() {
             for(i in 0 until dataArray.length()){
                 val dataObject = dataArray.getJSONObject(i)
                 val data = gson.fromJson(dataObject.toString(), User::class.java)
+                data.id = i
                 listUser.add(data)
-            }
-            for(i in 0 until listUser.size-1){
-                listUser[i].id = i
             }
 
             if(listUser.size == 0){
@@ -160,7 +159,7 @@ class MainActivity : AppCompatActivity() {
         binding.rvList.adapter?.notifyDataSetChanged();
     }
 
-    private fun getDetailUserApi(aUser: User) {
+    private fun getDetailUserApi(aUser: User, position: Int) {
         val clientDetail = AsyncHttpClient()
        clientDetail.addHeader("Authorization", "token ${BuildConfig.GITHUB_TOKEN}")
        clientDetail.addHeader("User-Agent", "request")
@@ -174,6 +173,7 @@ class MainActivity : AppCompatActivity() {
                 val gson = Gson()
                 val dataObject = JSONObject(resultDetail)
                 val newUser = gson.fromJson(dataObject.toString(), User::class.java)
+                newUser.id = position
                 showSelectedUser(newUser)
             }
             override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
