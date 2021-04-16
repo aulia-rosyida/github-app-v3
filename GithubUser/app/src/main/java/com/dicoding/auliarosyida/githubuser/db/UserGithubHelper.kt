@@ -5,6 +5,7 @@ import android.content.ContentValues
 import android.content.Context
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import com.dicoding.auliarosyida.githubuser.db.UserDbContract.UserDbColumns.Companion.COL_USERNAME
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract.UserDbColumns.Companion.TABLE_NAME
 import java.sql.SQLException
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract.UserDbColumns.Companion._ID
@@ -55,12 +56,12 @@ class UserGithubHelper (context: Context) {
     /**
      * ambil data dengan id tertentu
      * */
-    fun queryById(id: String): Cursor {
+    fun queryByUname(uname: String): Cursor {
         return db.query(
             DB_TABLE,
             null,
-            "$_ID = ?",
-            arrayOf(id),
+            "$COL_USERNAME = ?",
+            arrayOf(uname),
             null,
             null,
             null,
@@ -72,13 +73,8 @@ class UserGithubHelper (context: Context) {
         return db.insert(DB_TABLE, null, contValues)
     }
 
-    // Untuk perbaharui data
-    fun update(id: String, contValues: ContentValues?): Int {
-        return db.update(DB_TABLE, contValues, "$_ID = ?", arrayOf(id))
-    }
-
     // Untuk hapus data
-    fun deleteById(id: String): Int {
-        return db.delete(DB_TABLE, "$_ID = '$id'", null)
+    fun deleteByUname(uname: String): Int {
+        return db.delete(DB_TABLE, "$COL_USERNAME = '$uname'", null)
     }
 }
