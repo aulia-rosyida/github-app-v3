@@ -6,15 +6,18 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
+import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
+import android.view.inputmethod.EditorInfo
 import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.githubuser.adapter.UserAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.ActivityMainBinding
 import com.dicoding.auliarosyida.githubuser.entity.User
+import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpClient.log
@@ -53,6 +56,22 @@ class MainActivity : AppCompatActivity() {
                 getDetailUserApi(data, data.id)
             }
         })
+
+        binding.searchButton.setOnClickListener {
+            tempSearch = binding.textInputSearch.text.toString()
+            getUsersApi()
+            Toast.makeText(this@MainActivity, "You search $tempSearch.", Toast.LENGTH_SHORT).show()
+        }
+
+        binding.textInputSearch.setOnEditorActionListener { _, actionId, _ ->
+            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                tempSearch = binding.textInputSearch.text.toString()
+                getUsersApi()
+                Toast.makeText(this@MainActivity, "You search $tempSearch.", Toast.LENGTH_SHORT).show()
+            }
+            true
+        }
+
     }
 
     private fun setActionBarTitle(title: String) {
@@ -62,25 +81,6 @@ class MainActivity : AppCompatActivity() {
    override fun onCreateOptionsMenu(menu: Menu): Boolean {
        val inflater = menuInflater
        inflater.inflate(R.menu.option_menu, menu)
-
-       val manageSearch = getSystemService(Context.SEARCH_SERVICE) as SearchManager
-       val viewSearch = menu.findItem(R.id.search).actionView as SearchView
-
-       viewSearch.setSearchableInfo(manageSearch.getSearchableInfo(componentName))
-       viewSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
-           //method ini ketika search selesai atau OK
-           override fun onQueryTextSubmit(query: String): Boolean {
-               Toast.makeText(this@MainActivity, query, Toast.LENGTH_SHORT).show()
-               tempSearch = query
-               getUsersApi()
-               return true
-           }
-
-           // method ini untuk merespon tiap perubahan huruf pada searchView
-           override fun onQueryTextChange(newText: String): Boolean {
-               return false
-           }
-       })
        return super.onCreateOptionsMenu(menu)
    }
 
