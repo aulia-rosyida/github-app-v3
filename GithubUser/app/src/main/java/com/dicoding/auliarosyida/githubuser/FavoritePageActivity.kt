@@ -72,15 +72,17 @@ class FavoritePageActivity : AppCompatActivity() {
             binding.progressbarFavpage.visibility = View.VISIBLE
             val userGithubHelper = UserGithubHelper.getInstance(applicationContext)
             userGithubHelper.open()
-            val deferredNotes = async(Dispatchers.IO) {
+            val deferredFavorites = async(Dispatchers.IO) {
                 val cursor = userGithubHelper.queryAll()
                 MappingHelper.mapCursorToArrayList(cursor)
 //                cursor.close();
             }
             binding.progressbarFavpage.visibility = View.INVISIBLE
-            val notes = deferredNotes.await()
-            if (notes.size > 0) {
-                adapterFavPage.listFavorites = notes
+            val favorites = deferredFavorites.await()
+            if (favorites.size > 0) {
+                println("favorite page : ada isinya ${favorites.size}")
+                adapterFavPage.listFavorites = favorites
+                binding.rvFavorites.adapter?.notifyDataSetChanged()
             } else {
                 adapterFavPage.listFavorites = ArrayList()
                 showSnackbarMessage("Tidak ada data saat ini")
