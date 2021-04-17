@@ -6,7 +6,6 @@
         android:id="@+id/favPage"
         android:icon="@drawable/ic_white_favorite_24"
         android:title="@string/favorited"
-        app:actionViewClass="androidx.appcompat.widget.SearchView"
         app:showAsAction="collapseActionView|always" />
 
     <group android:menuCategory="container">
