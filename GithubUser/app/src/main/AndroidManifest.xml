@@ -11,7 +11,12 @@
         android:roundIcon="@drawable/icon_github"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser">
-        <activity android:name=".FavoritePageActivity"></activity>
+        <activity android:name=".FavoritePageActivity"
+            android:parentActivityName=".MainActivity">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".MainActivity" />
+        </activity>
         <activity android:name=".FavAddUpdateActivity" />
         <activity
             android:name=".TabLayoutActivity"
