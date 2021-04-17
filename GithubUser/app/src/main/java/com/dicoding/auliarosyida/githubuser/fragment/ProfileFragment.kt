@@ -1,7 +1,6 @@
 package com.dicoding.auliarosyida.githubuser.fragment
 
 import android.content.ContentValues
-import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,10 +10,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.dicoding.auliarosyida.githubuser.FavAddUpdateActivity.Companion.EXTRA_POSITION
-import com.dicoding.auliarosyida.githubuser.FavAddUpdateActivity.Companion.RESULT_DELETE
 import com.dicoding.auliarosyida.githubuser.R
-import com.dicoding.auliarosyida.githubuser.adapter.FavoriteAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.FragmentProfileBinding
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract
 import com.dicoding.auliarosyida.githubuser.db.UserGithubHelper
@@ -74,12 +70,10 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
                 val deferredFavorite = async(Dispatchers.IO) {
                     val cursor = userGithubHelper.queryByUname(uname)
                     MappingHelper.mapCursorToArrayList(cursor)
-                    // cursor.close();
                 }
 
                 val favorite = deferredFavorite.await()
                 if (favorite.size > 0) {
-                    println("profile fragment : dia udah favorit isinya ${favorite.size}")
                     user.isFavorited = true
                     statusFav = true
                     binding.favBtn.setColorFilter(Color.MAGENTA)
@@ -112,7 +106,6 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
             userGithubHelper.open()
             try {
                 if (status) {
-                    println("USER ADAPTER : STATUS ON")
                     binding.favBtn.setColorFilter(Color.MAGENTA)
 
                     var valuesTemp = valueFavoriteUser()
@@ -123,7 +116,6 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
                         Toast.makeText(thisContext, "Failed to Favorite", Toast.LENGTH_SHORT).show()
                     }
                 } else {
-                    println("USER ADAPTER : STATUS OFF")
                     binding.favBtn.setColorFilter(Color.GRAY)
                     val deleteResult = userGithubHelper.deleteByUname(uname).toLong()
                     if (deleteResult > 0) {
@@ -136,15 +128,7 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
                 userGithubHelper.close()
             }
         }
-
     }
-
-//    fun requestAdd(){
-//        adapter.addItem(note)
-//        binding.rvNotes.smoothScrollToPosition(adapter.itemCount - 1)
-//
-//        showSnackbarMessage("Satu item berhasil ditambahkan")
-//    }
 
      private fun valueFavoriteUser() : ContentValues{
          val values = ContentValues()
@@ -158,7 +142,5 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
          values.put(UserDbContract.UserDbColumns.COL_PHOTO, user.photo)
          println("USER INSERT : masuk ke valueFavoriteUser")
          return values
-
- //        userGithubHelper.insert(values)
      }
 }

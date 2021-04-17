@@ -2,30 +2,23 @@ package com.dicoding.auliarosyida.githubuser
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import com.dicoding.auliarosyida.githubuser.adapter.SectionsPagerAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.ActivityTabLayoutBinding
-import com.dicoding.auliarosyida.githubuser.databinding.ItemRowUserBinding
-import com.dicoding.auliarosyida.githubuser.db.UserGithubHelper
 import com.dicoding.auliarosyida.githubuser.entity.User
 import com.google.android.material.tabs.TabLayoutMediator
 
-class FavAddUpdateActivity : AppCompatActivity() , View.OnClickListener {
+class FavAddUpdateActivity : AppCompatActivity(){
     private var title: String = "User Favorite Detail"
     private var user: User? = null
     private var position: Int = 0
-//    private lateinit var userGithubHelper: UserGithubHelper
     private lateinit var binding: ActivityTabLayoutBinding
     private var dummyFavorite = User(0,"You do not have any favorite user","", "", "","","","","")
 
     companion object {
         const val EXTRA_FAVORITE_USER = "extra_favorite_user"
         const val EXTRA_POSITION = "extra_position"
-        const val REQUEST_ADD = 100
-        const val RESULT_ADD = 101
         const val REQUEST_UPDATE = 200
         const val RESULT_UPDATE = 201
         const val RESULT_DELETE = 301
@@ -72,9 +65,5 @@ class FavAddUpdateActivity : AppCompatActivity() , View.OnClickListener {
             }
         }
         return super.onOptionsItemSelected(menuItem)
-    }
-
-    override fun onClick(p0: View?) {
-        TODO("Not yet implemented")
     }
 }

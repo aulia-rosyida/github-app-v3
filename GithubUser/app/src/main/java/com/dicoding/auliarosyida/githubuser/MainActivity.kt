@@ -1,26 +1,20 @@
 package com.dicoding.auliarosyida.githubuser
 
-import android.app.SearchManager
-import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.provider.Settings
-import android.text.TextWatcher
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.appcompat.widget.SearchView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.githubuser.adapter.UserAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.ActivityMainBinding
 import com.dicoding.auliarosyida.githubuser.entity.User
-import com.google.android.material.textfield.TextInputLayout
 import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpClient.log
 import com.loopj.android.http.AsyncHttpResponseHandler
 import cz.msebera.android.httpclient.Header
 import org.json.JSONObject
