@@ -67,7 +67,6 @@ class MainActivity : AppCompatActivity() {
        val viewSearch = menu.findItem(R.id.search).actionView as SearchView
 
        viewSearch.setSearchableInfo(manageSearch.getSearchableInfo(componentName))
-       viewSearch.queryHint = resources.getString(R.string.search_hint)
        viewSearch.setOnQueryTextListener(object : SearchView.OnQueryTextListener {
            //method ini ketika search selesai atau OK
            override fun onQueryTextSubmit(query: String): Boolean {
@@ -86,13 +85,16 @@ class MainActivity : AppCompatActivity() {
    }
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        if (item.itemId == R.id.action_change_settings) {
-            val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
-            startActivity(mIntent)
-        }
-        else if (item.itemId == R.id.favPage) {
-            val favIntent = Intent(this@MainActivity, FavoritePageActivity::class.java)
-            startActivity(favIntent)
+        when(item.itemId){
+            R.id.action_change_settings -> {
+                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                startActivity(mIntent)
+            }
+            R.id.favPage -> {
+                val favIntent = Intent(this@MainActivity, FavoritePageActivity::class.java)
+                startActivity(favIntent)
+                return true
+            }
         }
         return super.onOptionsItemSelected(item)
     }
