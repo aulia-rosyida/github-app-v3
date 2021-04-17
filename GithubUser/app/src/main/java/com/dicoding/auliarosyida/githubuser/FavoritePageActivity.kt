@@ -23,6 +23,7 @@ class FavoritePageActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFavoritePageBinding
     lateinit var adapterFavPage: FavoriteAdapter
+    private var dummyFavorite = User(0,"You do not have favorited user","", "", "","","","","")
 
     companion object {
         private const val EXTRA_STATE = "EXTRA_STATE"
@@ -121,8 +122,10 @@ class FavoritePageActivity : AppCompatActivity() {
                 binding.progressbarFavpage.visibility = View.INVISIBLE
                 binding.rvFavorites.adapter?.notifyDataSetChanged()
             } else {
+                var listTemp = ArrayList<User>()
+                listTemp.add(dummyFavorite)
                 binding.progressbarFavpage.visibility = View.INVISIBLE
-                adapterFavPage.listFavorites = ArrayList()
+                adapterFavPage.listFavorites = listTemp
                 binding.rvFavorites.adapter?.notifyDataSetChanged()
                 showSnackbarMessage("Tidak ada data saat ini")
             }
