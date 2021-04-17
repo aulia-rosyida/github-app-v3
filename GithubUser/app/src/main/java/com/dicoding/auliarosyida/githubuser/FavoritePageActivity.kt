@@ -21,10 +21,10 @@ import kotlinx.coroutines.launch
 class FavoritePageActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityFavoritePageBinding
+    lateinit var adapterFavPage: FavoriteAdapter
 
     companion object {
         private const val EXTRA_STATE = "EXTRA_STATE"
-        lateinit var adapterFavPage: FavoriteAdapter
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -51,7 +51,6 @@ class FavoritePageActivity : AppCompatActivity() {
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
-
     override fun onSaveInstanceState(outState: Bundle) {
         super.onSaveInstanceState(outState)
         outState.putParcelableArrayList(EXTRA_STATE, adapterFavPage.listFavorites)
