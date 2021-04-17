@@ -1,7 +1,7 @@
 package com.dicoding.auliarosyida.githubuser.fragment
 
 import android.content.ContentValues
-import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,21 +9,17 @@ import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
-import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.dicoding.auliarosyida.githubuser.FavAddUpdateActivity.Companion.RESULT_ADD
-import com.dicoding.auliarosyida.githubuser.FavoritePageActivity
+import com.dicoding.auliarosyida.githubuser.FavAddUpdateActivity.Companion.EXTRA_POSITION
+import com.dicoding.auliarosyida.githubuser.FavAddUpdateActivity.Companion.RESULT_DELETE
 import com.dicoding.auliarosyida.githubuser.R
 import com.dicoding.auliarosyida.githubuser.adapter.FavoriteAdapter
-import com.dicoding.auliarosyida.githubuser.databinding.ActivityFavoritePageBinding
 import com.dicoding.auliarosyida.githubuser.databinding.FragmentProfileBinding
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract
 import com.dicoding.auliarosyida.githubuser.db.UserGithubHelper
 import com.dicoding.auliarosyida.githubuser.entity.User
 import com.dicoding.auliarosyida.githubuser.helper.MappingHelper
-import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.loopj.android.http.AsyncHttpClient.log
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -39,18 +35,6 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
     var user: User = detailUser
     var uname = detailUser.username
     private lateinit var userGithubHelper: UserGithubHelper
-
-    // companion object {
-    //     const val EXTRA_NOTE = "extra_note"
-    //     const val EXTRA_POSITION = "extra_position"
-    //     const val REQUEST_ADD = 100
-    //     const val RESULT_ADD = 101
-    //     const val REQUEST_UPDATE = 200
-    //     const val RESULT_UPDATE = 201
-    //     const val RESULT_DELETE = 301
-    //     const val ALERT_DIALOG_CLOSE = 10
-    //     const val ALERT_DIALOG_DELETE = 20
-    // }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -87,37 +71,23 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
             userGithubHelper.open()
 
             try {
-                val deferredNotes = async(Dispatchers.IO) {
+                val deferredFavorite = async(Dispatchers.IO) {
                     val cursor = userGithubHelper.queryByUname(uname)
                     MappingHelper.mapCursorToArrayList(cursor)
                     // cursor.close();
                 }
-                val deferredNotes2 = async(Dispatchers.IO) {
-                    val cursor = userGithubHelper.queryAll()
-                    MappingHelper.mapCursorToArrayList(cursor)
-                    // cursor.close();
-                }
 
-                val favorites = deferredNotes.await()
-                if (favorites.size > 0) {
-                    println("profile fragment : dia udah favorit isinya ${favorites.size}")
+                val favorite = deferredFavorite.await()
+                if (favorite.size > 0) {
+                    println("profile fragment : dia udah favorit isinya ${favorite.size}")
                     user.isFavorited = true
                     statusFav = true
                     binding.favBtn.setColorFilter(Color.MAGENTA)
-                }
-
-                val favoritesAll = deferredNotes2.await()
-                if (favoritesAll.size > 0) {
-                    println("profile fragment : ada isinya ${favoritesAll.size}")
-                } else {
-                    println("profile fragment : kosongannnnnnn")
                 }
             }finally {
                 userGithubHelper.close()
             }
         }
-
-//        if(statusFav || user.isFavorited) binding.favBtn.setColorFilter(Color.MAGENTA)
 
         binding.favBtn.setOnClickListener {
             statusFav = !statusFav
@@ -131,7 +101,6 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
 
     override fun onDestroyView() {
         // Do not store the binding instance in a field, if not required.
-//        userGithubHelper.close()
         super.onDestroyView()
         _binding = null
     }
