@@ -60,7 +60,7 @@ class SettingPreferenceFragment : PreferenceFragmentCompat(),
                         pref?.summary = getString(R.string.reminder_is_set)
                         alarmReceiver.setRepeatingAlarm(
                             requireContext(),
-                            "14:38", "Let's Open github app !"
+                            "09:00", "Let's Open github app !"
                         )
                     }
                     else -> {
