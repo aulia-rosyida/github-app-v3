@@ -11,7 +11,12 @@
         android:roundIcon="@drawable/icon_github"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser">
-        <activity android:name=".activity.SettingsActivity"></activity>
+        <receiver
+            android:name=".AlarmReceiver"
+            android:enabled="true"
+            android:exported="true"></receiver>
+
+        <activity android:name=".activity.SettingsActivity" />
         <activity
             android:name=".activity.FavoritePageActivity"
             android:parentActivityName=".activity.MainActivity"

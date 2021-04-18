@@ -9,15 +9,18 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import androidx.preference.SwitchPreferenceCompat
+import com.dicoding.auliarosyida.githubuser.AlarmReceiver
 import com.dicoding.auliarosyida.githubuser.R
 
 
 class SettingPreferenceFragment : PreferenceFragmentCompat(),
     SharedPreferences.OnSharedPreferenceChangeListener {
+
     private lateinit var REMINDER: String
     private lateinit var CHANGE_LANG: String
     private lateinit var changeLangPreference: Preference
-    private lateinit var reminderPreference: SwitchPreferenceCompat
+
+    private lateinit var alarmReceiver: AlarmReceiver
 
     override fun onCreatePreferences(bundle: Bundle?, s: String?) {
         addPreferencesFromResource(R.xml.preferences)
@@ -28,12 +31,13 @@ class SettingPreferenceFragment : PreferenceFragmentCompat(),
             startActivity(changeLangIntent)
             true
         }
+
+        alarmReceiver = AlarmReceiver()
     }
 
     private fun init() {
         REMINDER = resources.getString(R.string.key_reminder)
         CHANGE_LANG = resources.getString(R.string.key_change_language)
-        reminderPreference = findPreference<SwitchPreference>(REMINDER) as SwitchPreferenceCompat
         changeLangPreference = findPreference<Preference>(CHANGE_LANG) as Preference
     }
 
@@ -51,9 +55,18 @@ class SettingPreferenceFragment : PreferenceFragmentCompat(),
         val pref: Preference? = findPreference(key!!)
         when (key) {
             REMINDER -> {
-                when(preferences?.getBoolean(REMINDER, false)){
-                    true -> pref?.summary = getString(R.string.reminder_is_set)
-                    else -> pref?.summary = getString(R.string.reminder_not_set)
+                when (preferences?.getBoolean(REMINDER, false)) {
+                    true -> {
+                        pref?.summary = getString(R.string.reminder_is_set)
+                        alarmReceiver.setRepeatingAlarm(
+                            requireContext(), AlarmReceiver.TYPE_REPEATING,
+                            "09:00", "Let's Open github app !"
+                        )
+                    }
+                    else -> {
+                        pref?.summary = getString(R.string.reminder_not_set)
+                        alarmReceiver.cancelAlarm(requireContext(), AlarmReceiver.TYPE_REPEATING)
+                    }
                 }
             }
         }
