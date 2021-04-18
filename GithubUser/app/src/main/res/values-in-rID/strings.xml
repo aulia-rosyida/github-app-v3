@@ -26,4 +26,5 @@
     <string name="summary_language_setting">Mendukung Bahasa Indonesia dan Inggris</string>
     <string name="reminder_is_set">Reminder dibuat</string>
     <string name="reminder_not_set">Reminder belum dibuat</string>
+    <string name="cancel_alarm">Repeating alarm dibatalkan</string>
 </resources>
