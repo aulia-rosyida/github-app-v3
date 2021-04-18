@@ -59,13 +59,13 @@ class SettingPreferenceFragment : PreferenceFragmentCompat(),
                     true -> {
                         pref?.summary = getString(R.string.reminder_is_set)
                         alarmReceiver.setRepeatingAlarm(
-                            requireContext(), AlarmReceiver.TYPE_REPEATING,
-                            "09:00", "Let's Open github app !"
+                            requireContext(),
+                            "14:38", "Let's Open github app !"
                         )
                     }
                     else -> {
                         pref?.summary = getString(R.string.reminder_not_set)
-                        alarmReceiver.cancelAlarm(requireContext(), AlarmReceiver.TYPE_REPEATING)
+                        alarmReceiver.cancelAlarm(requireContext())
                     }
                 }
             }

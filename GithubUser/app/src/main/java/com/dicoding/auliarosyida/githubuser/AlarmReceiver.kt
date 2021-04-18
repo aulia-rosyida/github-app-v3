@@ -21,14 +21,12 @@ class AlarmReceiver : BroadcastReceiver() {
     companion object {
         const val TYPE_REPEATING = "Reminder at 09.00 am"
         const val EXTRA_MESSAGE = "message"
-        const val EXTRA_TYPE = "type"
         private const val ID_REPEATING = 101
         private const val TIME_FORMAT = "HH:mm"
     }
 
     override fun onReceive(context: Context, intent: Intent) {
         // This method is called when the BroadcastReceiver is receiving an Intent broadcast.
-        val type = intent.getStringExtra(EXTRA_TYPE)
         val message = intent.getStringExtra(EXTRA_MESSAGE)
 
         val title = TYPE_REPEATING
@@ -50,21 +48,12 @@ class AlarmReceiver : BroadcastReceiver() {
         }
     }
 
-    // Gunakan metode ini untuk mengecek apakah alarm tersebut sudah terdaftar di alarm manager
-    fun isAlarmSet(context: Context, type: String): Boolean {
-        val intent = Intent(context, AlarmReceiver::class.java)
-        val requestCode = ID_REPEATING
-
-        return PendingIntent.getBroadcast(context, requestCode, intent, PendingIntent.FLAG_NO_CREATE) != null
-    }
-
-    fun setRepeatingAlarm(context: Context, type: String, time: String, message: String) {
+    fun setRepeatingAlarm(context: Context, time: String, message: String) {
         if (isDateInvalid(time, TIME_FORMAT)) return
 
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
         intent.putExtra(EXTRA_MESSAGE, message)
-        val putExtra = intent.putExtra(EXTRA_TYPE, type)
 
         val timeArray = time.split(":".toRegex()).dropLastWhile { it.isEmpty() }.toTypedArray()
         val calendar = Calendar.getInstance()
@@ -83,7 +72,7 @@ class AlarmReceiver : BroadcastReceiver() {
         val notificationManagerCompat = context.getSystemService(Context.NOTIFICATION_SERVICE) as NotificationManager
         val alarmSound = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION)
         val builder = NotificationCompat.Builder(context, channelId)
-                .setSmallIcon(R.drawable.ic_access_time_blue_24)
+                .setSmallIcon(R.drawable.ic_notifications_active_black_24)
                 .setContentTitle(title)
                 .setContentText(message)
                 .setColor(ContextCompat.getColor(context, android.R.color.transparent))
@@ -102,7 +91,7 @@ class AlarmReceiver : BroadcastReceiver() {
         notificationManagerCompat.notify(notifId, notification)
     }
 
-    fun cancelAlarm(context: Context, type: String) {
+    fun cancelAlarm(context: Context) {
         val alarmManager = context.getSystemService(Context.ALARM_SERVICE) as AlarmManager
         val intent = Intent(context, AlarmReceiver::class.java)
         val requestCode = ID_REPEATING
