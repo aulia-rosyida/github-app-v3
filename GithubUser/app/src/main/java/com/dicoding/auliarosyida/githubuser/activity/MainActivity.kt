@@ -1,19 +1,19 @@
-package com.dicoding.auliarosyida.githubuser
+package com.dicoding.auliarosyida.githubuser.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.Settings
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.auliarosyida.githubuser.BuildConfig
+import com.dicoding.auliarosyida.githubuser.R
 import com.dicoding.auliarosyida.githubuser.adapter.UserAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.ActivityMainBinding
 import com.dicoding.auliarosyida.githubuser.entity.User
-import com.dicoding.auliarosyida.githubuser.fragment.SettingPreferenceFragment
 import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler

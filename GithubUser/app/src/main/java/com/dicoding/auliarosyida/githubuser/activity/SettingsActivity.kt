@@ -1,7 +1,8 @@
-package com.dicoding.auliarosyida.githubuser
+package com.dicoding.auliarosyida.githubuser.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.dicoding.auliarosyida.githubuser.R
 import com.dicoding.auliarosyida.githubuser.fragment.SettingPreferenceFragment
 
 class SettingsActivity : AppCompatActivity() {

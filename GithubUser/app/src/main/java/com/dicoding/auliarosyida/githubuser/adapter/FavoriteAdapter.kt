@@ -5,12 +5,11 @@ import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.githubuser.CustomClickListener
-import com.dicoding.auliarosyida.githubuser.FavAddUpdateActivity
+import com.dicoding.auliarosyida.githubuser.activity.FavAddUpdateActivity
 import com.dicoding.auliarosyida.githubuser.R
 import com.dicoding.auliarosyida.githubuser.databinding.ItemRowUserBinding
 import com.dicoding.auliarosyida.githubuser.entity.User

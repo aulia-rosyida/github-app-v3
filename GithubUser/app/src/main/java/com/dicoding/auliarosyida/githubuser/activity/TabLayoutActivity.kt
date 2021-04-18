@@ -1,9 +1,10 @@
-package com.dicoding.auliarosyida.githubuser
+package com.dicoding.auliarosyida.githubuser.activity
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
+import com.dicoding.auliarosyida.githubuser.R
 import com.dicoding.auliarosyida.githubuser.adapter.SectionsPagerAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.ActivityTabLayoutBinding
 import com.dicoding.auliarosyida.githubuser.entity.User
@@ -18,9 +19,9 @@ class TabLayoutActivity : AppCompatActivity() {
     companion object {
         @StringRes
         val TAB_TITLES = intArrayOf(
-                R.string.tag_profile,
-                R.string.tag_followers,
-                R.string.tag_following
+            R.string.tag_profile,
+            R.string.tag_followers,
+            R.string.tag_following
         )
         const val EXTRA_USER = "extra_user"
     }
