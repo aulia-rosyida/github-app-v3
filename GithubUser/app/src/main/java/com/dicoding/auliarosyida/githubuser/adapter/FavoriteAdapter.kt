@@ -45,23 +45,24 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
                     .apply(RequestOptions().override(55, 55))
                     .into(imgItemPhoto)
 
-                if(user.username.equals("Please try with another username")) {
+                if(user.username.equals("You do not have favorited user")) {
                     tvItemName.text = user.name
                     tvItemUsername.text = user.username
                 }
                 else {
                     tvItemName.text = user.username
                     tvItemUsername.text = "@${user.username}"
-                }
 
-                itemView.setOnClickListener(CustomClickListener(adapterPosition, object : CustomClickListener.OnItemClickCallback {
-                    override fun onItemClicked(view: View, position: Int) {
-                        val intent = Intent(activity, FavAddUpdateActivity::class.java)
-                        intent.putExtra(FavAddUpdateActivity.EXTRA_POSITION, position)
-                        intent.putExtra(FavAddUpdateActivity.EXTRA_FAVORITE_USER, user)
-                        activity.startActivityForResult(intent, FavAddUpdateActivity.REQUEST_UPDATE)
-                    }
-                }))
+                
+                    itemView.setOnClickListener(CustomClickListener(adapterPosition, object : CustomClickListener.OnItemClickCallback {
+                        override fun onItemClicked(view: View, position: Int) {
+                            val intent = Intent(activity, FavAddUpdateActivity::class.java)
+                            intent.putExtra(FavAddUpdateActivity.EXTRA_POSITION, position)
+                            intent.putExtra(FavAddUpdateActivity.EXTRA_FAVORITE_USER, user)
+                            activity.startActivityForResult(intent, FavAddUpdateActivity.REQUEST_UPDATE)
+                        }
+                    }))
+                }
             }
         }
     }
