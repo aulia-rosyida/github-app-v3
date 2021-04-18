@@ -49,12 +49,9 @@ class SettingPreferenceFragment : PreferenceFragmentCompat(),
 
     override fun onSharedPreferenceChanged(preferences: SharedPreferences?, key: String?) {
         val pref: Preference? = findPreference(key!!)
-        println("Test SETTINGS KEY - $key?")
         when (key) {
             REMINDER -> {
-                val isClicked = preferences?.getBoolean(REMINDER, false)
-                println("Test SETTINGS ISCLICKED -  $isClicked?")
-                when(isClicked){
+                when(preferences?.getBoolean(REMINDER, false)){
                     true -> pref?.summary = getString(R.string.reminder_is_set)
                     else -> pref?.summary = getString(R.string.reminder_not_set)
                 }

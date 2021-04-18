@@ -19,4 +19,10 @@
     <string name="ZeroFollower">Pengguna  ini memiliki 0 pengikut</string>
     <string name="ZeroFollowing">Pengguna ini mengikuti 0 pengguna lain</string>
     <string name="tag_profile">Profil</string>
+    <string name="favorited">Disukai</string>
+    <string name="delete">Hapus</string>
+    <string name="title_reminder_setting">Pengingat pada pukul 09.00 pagi</string>
+    <string name="title_language_setting">Pilih Bahasa</string>
+    <string name="summary_language_setting">Mendukung Bahasa Indonesia dan Inggris</string>
+    <string name="reminder_is_set">Reminder dibuat</string>
 </resources>
