@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser">
         <activity android:name=".FavoritePageActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
@@ -20,6 +21,7 @@
         <activity android:name=".FavAddUpdateActivity" />
         <activity
             android:name=".TabLayoutActivity"
+            android:screenOrientation="portrait"
             android:parentActivityName=".MainActivity">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
@@ -27,9 +29,11 @@
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".MainActivity" />
+        <activity android:name=".MainActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".SplashScreen"
+            android:screenOrientation="portrait"
             android:theme="@style/Theme.GithubUser.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
