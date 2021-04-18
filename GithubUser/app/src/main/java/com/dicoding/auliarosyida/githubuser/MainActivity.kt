@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.githubuser.adapter.UserAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.ActivityMainBinding
 import com.dicoding.auliarosyida.githubuser.entity.User
+import com.dicoding.auliarosyida.githubuser.fragment.SettingPreferenceFragment
 import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
@@ -81,8 +82,9 @@ class MainActivity : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when(item.itemId){
             R.id.action_change_settings -> {
-                val mIntent = Intent(Settings.ACTION_LOCALE_SETTINGS)
+                val mIntent = Intent(this@MainActivity, SettingsActivity::class.java)
                 startActivity(mIntent)
+                return true
             }
             R.id.favPage -> {
                 val favIntent = Intent(this@MainActivity, FavoritePageActivity::class.java)

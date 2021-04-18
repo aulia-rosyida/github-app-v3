@@ -25,4 +25,11 @@
     <string name="ZeroFollowing">This user has 0 of Following</string>
     <string name="favorited" translatable="false">favorite</string>
     <string name="delete" translatable="false">Delete</string>
+    <string name="key_reminder">reminder</string>
+    <string name="key_change_language">language</string>
+    <string name="title_reminder_setting">Reminder at 9.00 AM</string>
+    <string name="title_language_setting">Select Language</string>
+    <string name="summary_language_setting">Supported in Bahasa and English</string>
+    <string name="reminder_is_set">Reminder is set</string>
+    <string name="reminder_not_set">Reminder is not set</string>
 </resources>

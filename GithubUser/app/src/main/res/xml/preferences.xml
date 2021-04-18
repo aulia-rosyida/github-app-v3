@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.preference.PreferenceScreen
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <SwitchPreferenceCompat
+        app:key="@string/key_reminder"
+        app:title="@string/title_reminder_setting"/>
+
+    <Preference
+        app:key="@string/key_change_language"
+        app:title="@string/title_language_setting"
+        app:summary="@string/summary_language_setting"/>
+
+</androidx.preference.PreferenceScreen>

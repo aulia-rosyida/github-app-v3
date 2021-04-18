@@ -12,7 +12,8 @@
         <item
             android:id="@+id/action_change_settings"
             android:title="@string/change_language_settings"
-            app:showAsAction="never"/>
+            android:icon="@drawable/ic_baseline_settings_white_24px"
+            app:showAsAction="collapseActionView|always"/>
     </group>
 
 </menu>
