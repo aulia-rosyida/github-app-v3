@@ -21,9 +21,7 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
         set(listFavorites) {
             if (listFavorites.size > 0) {
                 this.listFavorites.clear()
-                println("set list fav baru")
             }
-            println("masuk set list fav")
             this.listFavorites.addAll(listFavorites)
             notifyDataSetChanged()
         }
@@ -62,20 +60,10 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
                         intent.putExtra(FavAddUpdateActivity.EXTRA_POSITION, position)
                         intent.putExtra(FavAddUpdateActivity.EXTRA_FAVORITE_USER, user)
                         activity.startActivityForResult(intent, FavAddUpdateActivity.REQUEST_UPDATE)
-                        Toast.makeText(activity, "clicked", Toast.LENGTH_SHORT).show()
                     }
                 }))
             }
         }
-    }
-
-    fun addItem(favUser: User) {
-        this.listFavorites.add(favUser)
-        notifyItemInserted(this.listFavorites.size - 1)
-    }
-    fun updateItem(position: Int, favUser: User) {
-        this.listFavorites[position] = favUser
-        notifyItemChanged(position, favUser)
     }
     fun removeItem(position: Int) {
         this.listFavorites.removeAt(position)
