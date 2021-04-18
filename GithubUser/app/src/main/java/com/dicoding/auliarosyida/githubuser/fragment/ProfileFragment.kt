@@ -87,7 +87,6 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
             statusFav = !statusFav
             setStatusFav(statusFav)
             user.isFavorited = statusFav
-            println("ISFAV USER : $statusFav")
         }
     }
 
@@ -140,7 +139,7 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
          values.put(UserDbContract.UserDbColumns.COL_FOLLOWER, user.followers)
          values.put(UserDbContract.UserDbColumns.COL_FOLLOWING, user.following)
          values.put(UserDbContract.UserDbColumns.COL_PHOTO, user.photo)
-         println("USER INSERT : masuk ke valueFavoriteUser")
+
          return values
      }
 }

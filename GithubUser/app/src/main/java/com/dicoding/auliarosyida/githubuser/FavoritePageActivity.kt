@@ -3,8 +3,6 @@ package com.dicoding.auliarosyida.githubuser
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.provider.ContactsContract
-import android.util.Log
 import android.view.MenuItem
 import android.view.View
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -45,21 +43,7 @@ class FavoritePageActivity : AppCompatActivity() {
         binding.rvFavorites.adapter = adapterFavPage
         binding.rvFavorites.adapter?.notifyDataSetChanged()
 
-//         if (savedInstanceState == null) {
-//             // proses ambil data
-//             loadNotesAsync()
-//         } else {
-//             val list = savedInstanceState.getParcelableArrayList<User>(EXTRA_STATE)
-//             if (list != null) {
-//                 adapterFavPage.listFavorites = list
-//             }
-//         }
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onStart() {
-        super.onStart()
-        Log.d("ACU DI FAV", "Activity A: onStart() ")
     }
 
     override fun onResume() {
@@ -67,32 +51,7 @@ class FavoritePageActivity : AppCompatActivity() {
         // proses ambil data
         loadNotesAsync()
         super.onResume()
-        Log.d("ACU DI FAV", "Activity A: onResume() ")
     }
-
-    override fun onPause() {
-        super.onPause()
-        Log.d("ACU DI FAV", "Activity A: onPause() ")
-    }
-
-    override fun onRestart() {
-        super.onRestart()
-        Log.d("ACU DI FAV", "Activity A: onRestart() ")
-    }
-
-    override fun onStop() {
-        super.onStop()
-        Log.d("ACU DI FAV", "Activity A: onStop() ")
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
-        Log.d("ACU DI FAV", "Activity A: onDestroy() ")
-    }
-//     override fun onSaveInstanceState(outState: Bundle) {
-//         super.onSaveInstanceState(outState)
-//         outState.putParcelableArrayList(EXTRA_STATE, adapterFavPage.listFavorites)
-//     }
 
     // function to the button on press
     override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
@@ -113,11 +72,9 @@ class FavoritePageActivity : AppCompatActivity() {
             val deferredFavorites = async(Dispatchers.IO) {
                 val cursor = userGithubHelper.queryAll()
                 MappingHelper.mapCursorToArrayList(cursor)
-//                cursor.close();
             }
             val favorites = deferredFavorites.await()
             if (favorites.size > 0) {
-                println("favorite page : ada isinya ${favorites.size}")
                 adapterFavPage.listFavorites = favorites
                 binding.progressbarFavpage.visibility = View.INVISIBLE
                 binding.rvFavorites.adapter?.notifyDataSetChanged()

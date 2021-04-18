@@ -53,7 +53,6 @@ class FollowersFragment : Fragment(R.layout.fragment_followers) {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-//        return inflater.inflate(R.layout.fragment_followers, container, false)
         _binding = FragmentFollowersBinding.inflate(inflater, container, false)
         return binding.root
     }

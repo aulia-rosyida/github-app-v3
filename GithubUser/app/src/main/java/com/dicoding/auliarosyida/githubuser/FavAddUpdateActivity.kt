@@ -3,7 +3,6 @@ package com.dicoding.auliarosyida.githubuser
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
-import android.view.View
 import com.dicoding.auliarosyida.githubuser.adapter.SectionsPagerAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.ActivityTabLayoutBinding
 import com.dicoding.auliarosyida.githubuser.entity.User
@@ -20,10 +19,7 @@ class FavAddUpdateActivity : AppCompatActivity(){
         const val EXTRA_FAVORITE_USER = "extra_favorite_user"
         const val EXTRA_POSITION = "extra_position"
         const val REQUEST_UPDATE = 200
-        const val RESULT_UPDATE = 201
         const val RESULT_DELETE = 301
-        const val ALERT_DIALOG_CLOSE = 10
-        const val ALERT_DIALOG_DELETE = 20
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
