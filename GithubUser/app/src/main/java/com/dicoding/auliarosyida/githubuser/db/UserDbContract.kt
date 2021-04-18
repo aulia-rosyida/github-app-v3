@@ -1,8 +1,13 @@
 package com.dicoding.auliarosyida.githubuser.db
 
+import android.net.Uri
 import android.provider.BaseColumns
 
-internal class UserDbContract {
+object UserDbContract {
+
+    const val AUTHORITY = "com.dicoding.auliarosyida.githubuser"
+    const val SCHEME = "content"
+
     internal class UserDbColumns : BaseColumns {
         companion object {
             const val TABLE_NAME = "user_favorite"
@@ -16,6 +21,12 @@ internal class UserDbContract {
             const val COL_FOLLOWING = "following"
             const val COL_PHOTO = "avatar_url"
             const val COL_IS_FAVORITED = "is_favorited"
+
+            // untuk membuat URI content://com.dicoding.auliarosyida.mynotesapp/user
+            val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME)
+                    .authority(AUTHORITY)
+                    .appendPath(TABLE_NAME)
+                    .build()
         }
     }
 }

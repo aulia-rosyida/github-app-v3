@@ -68,6 +68,18 @@ class UserGithubHelper (context: Context) {
             null)
     }
 
+    fun queryById(id: String): Cursor {
+        return db.query(
+            DB_TABLE,
+            null,
+            "$_ID = ?",
+            arrayOf(id),
+            null,
+            null,
+            null,
+            null)
+    }
+
     // Untuk simpan data
     fun insert(contValues: ContentValues?): Long {
         return db.insert(DB_TABLE, null, contValues)
@@ -76,5 +88,14 @@ class UserGithubHelper (context: Context) {
     // Untuk hapus data
     fun deleteByUname(uname: String): Int {
         return db.delete(DB_TABLE, "$COL_USERNAME = '$uname'", null)
+    }
+
+    // Untuk hapus data
+    fun deleteById(id: String): Int {
+        return db.delete(DB_TABLE, "$_ID = '$id'", null)
+    }
+
+    fun update(id: String, contValues: ContentValues?): Int {
+        return db.update(DB_TABLE, contValues, "$_ID = ?", arrayOf(id))
     }
 }
