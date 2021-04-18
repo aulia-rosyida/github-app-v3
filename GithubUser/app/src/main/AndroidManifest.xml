@@ -11,9 +11,11 @@
         android:roundIcon="@drawable/icon_github"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser">
-        <activity android:name=".FavoritePageActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity">
+        <activity android:name=".SettingsActivity"></activity>
+        <activity
+            android:name=".FavoritePageActivity"
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
@@ -21,15 +23,16 @@
         <activity android:name=".FavAddUpdateActivity" />
         <activity
             android:name=".TabLayoutActivity"
-            android:screenOrientation="portrait"
-            android:parentActivityName=".MainActivity">
+            android:parentActivityName=".MainActivity"
+            android:screenOrientation="portrait">
 
             <!-- Parent activity meta-data to support 4.0 and lower -->
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
                 android:value=".MainActivity" />
         </activity>
-        <activity android:name=".MainActivity"
+        <activity
+            android:name=".MainActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".SplashScreen"
