@@ -2,8 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dicoding.auliarosyida.consumerapp">
 
-    <uses-permission android:name="com.dicoding.mynotesapp.READ_DATABASE" />
-    <uses-permission android:name="com.dicoding.mynotesapp.WRITE_DATABASE" />
+    <uses-permission android:name="com.dicoding.githubuser.READ_DATABASE" />
+    <uses-permission android:name="com.dicoding.githubuser.WRITE_DATABASE" />
 
     <application
         android:allowBackup="true"
@@ -12,7 +12,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.GithubUser">
-        <activity android:name=".activity.MainActivity">
+        <activity android:name=".activity.FavoritePageActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -20,5 +20,9 @@
             </intent-filter>
         </activity>
     </application>
+
+    <queries>
+        <package android:name="com.dicoding.auliarosyida.githubuser" />
+    </queries>
 
 </manifest>
