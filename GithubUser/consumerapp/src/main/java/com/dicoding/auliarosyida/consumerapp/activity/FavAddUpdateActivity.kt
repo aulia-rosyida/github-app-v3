@@ -1,11 +1,12 @@
-package com.dicoding.auliarosyida.githubuser.activity
+package com.dicoding.auliarosyida.consumerapp.activity
 
-import androidx.appcompat.app.AppCompatActivity
+import android.net.Uri
 import android.os.Bundle
 import android.view.MenuItem
-import com.dicoding.auliarosyida.githubuser.adapter.SectionsPagerAdapter
-import com.dicoding.auliarosyida.githubuser.databinding.ActivityTabLayoutBinding
-import com.dicoding.auliarosyida.githubuser.entity.User
+import androidx.appcompat.app.AppCompatActivity
+import com.dicoding.auliarosyida.consumerapp.adapter.SectionsPagerAdapter
+import com.dicoding.auliarosyida.consumerapp.databinding.ActivityTabLayoutBinding
+import com.dicoding.auliarosyida.consumerapp.entity.User
 import com.google.android.material.tabs.TabLayoutMediator
 
 class FavAddUpdateActivity : AppCompatActivity(){
@@ -14,6 +15,7 @@ class FavAddUpdateActivity : AppCompatActivity(){
     private var position: Int = 0
     private lateinit var binding: ActivityTabLayoutBinding
     private var dummyFavorite = User(0,"You do not have any favorite user","", "", "","","","","")
+    private lateinit var uriWithId: Uri
 
     companion object {
         const val EXTRA_FAVORITE_USER = "extra_favorite_user"

@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.githubuser.fragment
+package com.dicoding.auliarosyida.consumerapp.fragment
 
 import androidx.fragment.app.Fragment
 import android.os.Bundle
@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import android.widget.Toast
 import android.widget.Toast.makeText
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.auliarosyida.githubuser.BuildConfig
-import com.dicoding.auliarosyida.githubuser.R
-import com.dicoding.auliarosyida.githubuser.adapter.UserAdapter
-import com.dicoding.auliarosyida.githubuser.databinding.FragmentFollowersBinding
-import com.dicoding.auliarosyida.githubuser.entity.User
+import com.dicoding.auliarosyida.consumerapp.BuildConfig
+import com.dicoding.auliarosyida.consumerapp.R
+import com.dicoding.auliarosyida.consumerapp.adapter.UserAdapter
+import com.dicoding.auliarosyida.consumerapp.databinding.FragmentFollowersBinding
+import com.dicoding.auliarosyida.consumerapp.entity.User
 import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler

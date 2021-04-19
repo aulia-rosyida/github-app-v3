@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.githubuser.db
+package com.dicoding.auliarosyida.consumerapp.db
 
 import android.net.Uri
 import android.provider.BaseColumns

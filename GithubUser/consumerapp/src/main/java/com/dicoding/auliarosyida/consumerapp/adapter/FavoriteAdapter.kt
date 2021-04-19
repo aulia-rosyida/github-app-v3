@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.githubuser.adapter
+package com.dicoding.auliarosyida.consumerapp.adapter
 
 import android.app.Activity
 import android.content.Intent
@@ -8,11 +8,11 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.dicoding.auliarosyida.githubuser.CustomClickListener
-import com.dicoding.auliarosyida.githubuser.activity.FavAddUpdateActivity
-import com.dicoding.auliarosyida.githubuser.R
-import com.dicoding.auliarosyida.githubuser.databinding.ItemRowUserBinding
-import com.dicoding.auliarosyida.githubuser.entity.User
+import com.dicoding.auliarosyida.consumerapp.CustomClickListener
+import com.dicoding.auliarosyida.consumerapp.R
+import com.dicoding.auliarosyida.consumerapp.activity.FavAddUpdateActivity
+import com.dicoding.auliarosyida.consumerapp.databinding.ItemRowUserBinding
+import com.dicoding.auliarosyida.consumerapp.entity.User
 
 class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
@@ -58,7 +58,7 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
                             val intent = Intent(activity, FavAddUpdateActivity::class.java)
                             intent.putExtra(FavAddUpdateActivity.EXTRA_POSITION, position)
                             intent.putExtra(FavAddUpdateActivity.EXTRA_FAVORITE_USER, user)
-                            activity.startActivityForResult(intent, FavAddUpdateActivity.REQUEST_UPDATE)
+                            activity.startActivity(intent)
                         }
                     }))
                 }

@@ -1,11 +1,11 @@
-package com.dicoding.auliarosyida.githubuser
+package com.dicoding.auliarosyida.consumerapp
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import com.dicoding.auliarosyida.githubuser.activity.MainActivity
+import com.dicoding.auliarosyida.consumerapp.activity.MainActivity
 
 class SplashScreen : AppCompatActivity() {
     private val timeout :Long=3000 // 3 s

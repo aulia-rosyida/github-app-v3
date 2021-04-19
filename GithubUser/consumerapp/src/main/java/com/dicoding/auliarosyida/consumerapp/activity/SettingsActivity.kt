@@ -1,9 +1,9 @@
-package com.dicoding.auliarosyida.githubuser.activity
+package com.dicoding.auliarosyida.consumerapp.activity
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import com.dicoding.auliarosyida.githubuser.R
-import com.dicoding.auliarosyida.githubuser.fragment.SettingPreferenceFragment
+import com.dicoding.auliarosyida.consumerapp.R
+import com.dicoding.auliarosyida.consumerapp.fragment.SettingPreferenceFragment
 
 class SettingsActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {

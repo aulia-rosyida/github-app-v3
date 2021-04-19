@@ -1,16 +1,18 @@
-package com.dicoding.auliarosyida.githubuser.activity
+package com.dicoding.auliarosyida.consumerapp.activity
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.database.ContentObserver
 import android.os.Bundle
+import android.os.Handler
+import android.os.HandlerThread
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.auliarosyida.githubuser.adapter.FavoriteAdapter
-import com.dicoding.auliarosyida.githubuser.databinding.ActivityFavoritePageBinding
-import com.dicoding.auliarosyida.githubuser.db.UserGithubHelper
-import com.dicoding.auliarosyida.githubuser.entity.User
-import com.dicoding.auliarosyida.githubuser.helper.MappingHelper
+import com.dicoding.auliarosyida.consumerapp.adapter.FavoriteAdapter
+import com.dicoding.auliarosyida.consumerapp.databinding.ActivityFavoritePageBinding
+import com.dicoding.auliarosyida.consumerapp.db.UserDbContract.UserDbColumns.Companion.CONTENT_URI
+import com.dicoding.auliarosyida.consumerapp.entity.User
+import com.dicoding.auliarosyida.consumerapp.helper.MappingHelper
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
@@ -38,18 +40,39 @@ class FavoritePageActivity : AppCompatActivity() {
 
         adapterFavPage = FavoriteAdapter(this)
 
-        // proses ambil data
-        loadNotesAsync()
+        val handlerThread = HandlerThread("DataObserver")
+        handlerThread.start()
+        val handler = Handler(handlerThread.looper)
+
+        val myObserver = object : ContentObserver(handler) {
+            override fun onChange(self: Boolean) {
+                loadFavoritesAsync()
+            }
+        }
+
+        contentResolver.registerContentObserver(CONTENT_URI, true, myObserver)
+
+        if (savedInstanceState == null) {
+            loadFavoritesAsync()
+        } else {
+            savedInstanceState.getParcelableArrayList<User>(EXTRA_STATE)?.also { adapterFavPage.listFavorites = it }
+        }
+
         binding.rvFavorites.adapter = adapterFavPage
         binding.rvFavorites.adapter?.notifyDataSetChanged()
 
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(EXTRA_STATE, adapterFavPage.listFavorites)
+    }
+
     override fun onResume() {
 
         // proses ambil data
-        loadNotesAsync()
+        loadFavoritesAsync()
         super.onResume()
     }
 
@@ -64,45 +87,30 @@ class FavoritePageActivity : AppCompatActivity() {
         return super.onOptionsItemSelected(menuItem)
     }
 
-    private fun loadNotesAsync() {
+    private fun loadFavoritesAsync() {
         binding.progressbarFavpage.visibility = View.VISIBLE
+
         GlobalScope.launch(Dispatchers.Main) {
-            val userGithubHelper = UserGithubHelper.getInstance(applicationContext)
-            userGithubHelper.open()
+
             val deferredFavorites = async(Dispatchers.IO) {
-                val cursor = userGithubHelper.queryAll()
+                // CONTENT_URI = content://com.dicoding.auliarosyida.githubapp/user
+                val cursor = contentResolver.query(CONTENT_URI, null, null, null, null)
                 MappingHelper.mapCursorToArrayList(cursor)
             }
+
             val favorites = deferredFavorites.await()
             if (favorites.size > 0) {
                 adapterFavPage.listFavorites = favorites
-                binding.progressbarFavpage.visibility = View.INVISIBLE
-                binding.rvFavorites.adapter?.notifyDataSetChanged()
             } else {
                 var listTemp = ArrayList<User>()
                 listTemp.add(dummyFavorite)
-                binding.progressbarFavpage.visibility = View.INVISIBLE
                 adapterFavPage.listFavorites = listTemp
-                binding.rvFavorites.adapter?.notifyDataSetChanged()
                 showSnackbarMessage("Tidak ada data saat ini")
             }
-            userGithubHelper.close()
+            binding.progressbarFavpage.visibility = View.INVISIBLE
         }
     }
     private fun showSnackbarMessage(message: String) {
         Snackbar.make(binding.rvFavorites, message, Snackbar.LENGTH_SHORT).show()
-    }
-
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
-        if (data != null) {
-            when (requestCode) {
-                FavAddUpdateActivity.RESULT_DELETE -> {
-                    val position = data.getIntExtra(FavAddUpdateActivity.EXTRA_POSITION, 0)
-                    adapterFavPage.removeItem(position)
-                    showSnackbarMessage("Satu item berhasil dihapus")
-                }
-            }
-        }
     }
 }

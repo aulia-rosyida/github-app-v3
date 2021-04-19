@@ -1,13 +1,13 @@
-package com.dicoding.auliarosyida.githubuser.activity
+package com.dicoding.auliarosyida.consumerapp.activity
 
 import android.os.Bundle
 import android.view.MenuItem
 import androidx.annotation.StringRes
 import androidx.appcompat.app.AppCompatActivity
-import com.dicoding.auliarosyida.githubuser.R
-import com.dicoding.auliarosyida.githubuser.adapter.SectionsPagerAdapter
-import com.dicoding.auliarosyida.githubuser.databinding.ActivityTabLayoutBinding
-import com.dicoding.auliarosyida.githubuser.entity.User
+import com.dicoding.auliarosyida.consumerapp.R
+import com.dicoding.auliarosyida.consumerapp.adapter.SectionsPagerAdapter
+import com.dicoding.auliarosyida.consumerapp.databinding.ActivityTabLayoutBinding
+import com.dicoding.auliarosyida.consumerapp.entity.User
 import com.google.android.material.tabs.TabLayoutMediator
 
 

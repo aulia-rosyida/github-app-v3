@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.githubuser.entity
+package com.dicoding.auliarosyida.consumerapp.entity
 
 import android.os.Parcelable
 import com.google.gson.annotations.SerializedName

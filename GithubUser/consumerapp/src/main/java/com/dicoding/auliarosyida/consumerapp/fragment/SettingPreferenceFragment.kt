@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.githubuser.fragment
+package com.dicoding.auliarosyida.consumerapp.fragment
 
 import android.R.attr
 import android.content.Intent
@@ -9,8 +9,8 @@ import androidx.preference.Preference
 import androidx.preference.PreferenceFragmentCompat
 import androidx.preference.SwitchPreference
 import androidx.preference.SwitchPreferenceCompat
-import com.dicoding.auliarosyida.githubuser.AlarmReceiver
-import com.dicoding.auliarosyida.githubuser.R
+import com.dicoding.auliarosyida.consumerapp.AlarmReceiver
+import com.dicoding.auliarosyida.consumerapp.R
 
 
 class SettingPreferenceFragment : PreferenceFragmentCompat(),

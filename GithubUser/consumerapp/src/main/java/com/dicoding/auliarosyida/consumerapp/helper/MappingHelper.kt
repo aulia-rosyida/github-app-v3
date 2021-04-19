@@ -1,9 +1,8 @@
-package com.dicoding.auliarosyida.githubuser.helper
+package com.dicoding.auliarosyida.consumerapp.helper
 
 import android.database.Cursor
-import android.provider.ContactsContract
-import com.dicoding.auliarosyida.githubuser.db.UserDbContract
-import com.dicoding.auliarosyida.githubuser.entity.User
+import com.dicoding.auliarosyida.consumerapp.db.UserDbContract
+import com.dicoding.auliarosyida.consumerapp.entity.User
 import java.lang.Boolean.getBoolean
 
 object MappingHelper {

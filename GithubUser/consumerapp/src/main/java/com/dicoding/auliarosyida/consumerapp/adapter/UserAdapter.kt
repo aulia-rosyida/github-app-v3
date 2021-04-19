@@ -1,12 +1,12 @@
-package com.dicoding.auliarosyida.githubuser.adapter
+package com.dicoding.auliarosyida.consumerapp.adapter
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.dicoding.auliarosyida.githubuser.databinding.ItemRowUserBinding
-import com.dicoding.auliarosyida.githubuser.entity.User
+import com.dicoding.auliarosyida.consumerapp.databinding.ItemRowUserBinding
+import com.dicoding.auliarosyida.consumerapp.entity.User
 
 class UserAdapter(private val listUser: MutableList<User>): RecyclerView.Adapter<UserAdapter.ListViewHolder>() {
 

@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.githubuser
+package com.dicoding.auliarosyida.consumerapp
 
 import android.view.View
 

@@ -1,7 +1,8 @@
-package com.dicoding.auliarosyida.githubuser.fragment
+package com.dicoding.auliarosyida.consumerapp.fragment
 
 import android.content.ContentValues
 import android.graphics.Color
+import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
 import androidx.fragment.app.Fragment
@@ -10,12 +11,12 @@ import android.view.ViewGroup
 import android.widget.Toast
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.dicoding.auliarosyida.githubuser.R
-import com.dicoding.auliarosyida.githubuser.databinding.FragmentProfileBinding
-import com.dicoding.auliarosyida.githubuser.db.UserDbContract
-import com.dicoding.auliarosyida.githubuser.db.UserGithubHelper
-import com.dicoding.auliarosyida.githubuser.entity.User
-import com.dicoding.auliarosyida.githubuser.helper.MappingHelper
+import com.dicoding.auliarosyida.consumerapp.R
+import com.dicoding.auliarosyida.consumerapp.databinding.FragmentProfileBinding
+import com.dicoding.auliarosyida.consumerapp.db.UserDbContract
+import com.dicoding.auliarosyida.consumerapp.db.UserGithubHelper
+import com.dicoding.auliarosyida.consumerapp.entity.User
+import com.dicoding.auliarosyida.consumerapp.helper.MappingHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -30,7 +31,7 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
 
     var user: User = detailUser
     var uname = detailUser.username
-    private lateinit var userGithubHelper: UserGithubHelper
+    private lateinit var uriWithId: Uri
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -63,8 +64,6 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
         //untuk cek sudah ada dalam db atau belum
         GlobalScope.launch(Dispatchers.Main) {
             val thisContext = requireContext()
-            userGithubHelper = UserGithubHelper.getInstance(thisContext)
-            userGithubHelper.open()
 
             try {
                 val deferredFavorite = async(Dispatchers.IO) {
@@ -78,8 +77,6 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
                     statusFav = true
                     binding.favBtn.setColorFilter(Color.MAGENTA)
                 }
-            }finally {
-                userGithubHelper.close()
             }
         }
 

@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.githubuser.activity
+package com.dicoding.auliarosyida.consumerapp.activity
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
@@ -9,11 +9,15 @@ import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.dicoding.auliarosyida.githubuser.BuildConfig
-import com.dicoding.auliarosyida.githubuser.R
-import com.dicoding.auliarosyida.githubuser.adapter.UserAdapter
-import com.dicoding.auliarosyida.githubuser.databinding.ActivityMainBinding
-import com.dicoding.auliarosyida.githubuser.entity.User
+import com.dicoding.auliarosyida.consumerapp.R
+import com.dicoding.auliarosyida.consumerapp.adapter.UserAdapter
+import com.dicoding.auliarosyida.consumerapp.databinding.ActivityMainBinding
+import com.dicoding.auliarosyida.consumerapp.entity.User
+import com.dicoding.auliarosyida.consumerapp.BuildConfig
+import com.dicoding.auliarosyida.consumerapp.R
+import com.dicoding.auliarosyida.consumerapp.adapter.UserAdapter
+import com.dicoding.auliarosyida.consumerapp.databinding.ActivityMainBinding
+import com.dicoding.auliarosyida.consumerapp.entity.User
 import com.google.gson.Gson
 import com.loopj.android.http.AsyncHttpClient
 import com.loopj.android.http.AsyncHttpResponseHandler
@@ -23,7 +27,7 @@ import java.util.*
 
 class MainActivity : AppCompatActivity() {
 
-    private var title: String = "Github User List"
+    private var title: String = "Consumer User List"
     private var tempSearch = "aulia-"
 
     private lateinit var binding: ActivityMainBinding

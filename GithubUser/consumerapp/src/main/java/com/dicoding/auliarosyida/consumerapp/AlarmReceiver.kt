@@ -1,4 +1,4 @@
-package com.dicoding.auliarosyida.githubuser
+package com.dicoding.auliarosyida.consumerapp
 
 import android.app.AlarmManager
 import android.app.NotificationChannel
@@ -13,7 +13,7 @@ import android.widget.Toast
 import androidx.core.app.NotificationCompat
 import androidx.core.app.TaskStackBuilder
 import androidx.core.content.ContextCompat
-import com.dicoding.auliarosyida.githubuser.activity.MainActivity
+import com.dicoding.auliarosyida.consumerapp.activity.MainActivity
 import java.text.ParseException
 import java.text.SimpleDateFormat
 import java.util.*
