@@ -36,8 +36,8 @@ class FavoritePageActivity : AppCompatActivity() {
         supportActionBar?.title = "Favorite"
         binding.rvFavorites.layoutManager = LinearLayoutManager(this)
         binding.rvFavorites.setHasFixedSize(true)
-
         adapterFavPage = FavoriteAdapter(this)
+        binding.rvFavorites.adapter = adapterFavPage
 
         val handlerThread = HandlerThread("DataObserver")
         handlerThread.start()
@@ -56,16 +56,9 @@ class FavoritePageActivity : AppCompatActivity() {
         } else {
             savedInstanceState.getParcelableArrayList<User>(EXTRA_STATE)?.also { adapterFavPage.listFavorites = it }
         }
-
-        binding.rvFavorites.adapter = adapterFavPage
 //        binding.rvFavorites.adapter?.notifyDataSetChanged()
 
 //        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-    }
-
-    override fun onSaveInstanceState(outState: Bundle) {
-        super.onSaveInstanceState(outState)
-        outState.putParcelableArrayList(EXTRA_STATE, adapterFavPage.listFavorites)
     }
 
 //    override fun onResume() {
@@ -109,7 +102,13 @@ class FavoritePageActivity : AppCompatActivity() {
             binding.progressbarFavpage.visibility = View.INVISIBLE
         }
     }
+
     private fun showSnackbarMessage(message: String) {
         Snackbar.make(binding.rvFavorites, message, Snackbar.LENGTH_SHORT).show()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putParcelableArrayList(EXTRA_STATE, adapterFavPage.listFavorites)
     }
 }
