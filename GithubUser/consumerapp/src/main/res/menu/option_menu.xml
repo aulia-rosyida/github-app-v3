@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"  xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <item
+        android:id="@+id/favPage"
+        android:icon="@drawable/ic_white_favorite_24"
+        android:title="@string/favorited"
+        app:showAsAction="collapseActionView|always" />
+
+    <group android:menuCategory="container">
+        <item
+            android:id="@+id/action_change_settings"
+            android:title="@string/change_language_settings"
+            android:icon="@drawable/ic_baseline_settings_white_24px"
+            app:showAsAction="collapseActionView|always"/>
+    </group>
+
+</menu>
