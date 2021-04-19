@@ -22,7 +22,7 @@ object UserDbContract {
             const val COL_PHOTO = "avatar_url"
             const val COL_IS_FAVORITED = "is_favorited"
 
-            // untuk membuat URI content://com.dicoding.auliarosyida.mynotesapp/user
+            // untuk membuat URI content://com.dicoding.auliarosyida.githubuser/user
             val CONTENT_URI: Uri = Uri.Builder().scheme(SCHEME)
                     .authority(AUTHORITY)
                     .appendPath(TABLE_NAME)

@@ -4,7 +4,6 @@ import android.database.ContentObserver
 import android.os.Bundle
 import android.os.Handler
 import android.os.HandlerThread
-import android.view.MenuItem
 import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -59,9 +58,9 @@ class FavoritePageActivity : AppCompatActivity() {
         }
 
         binding.rvFavorites.adapter = adapterFavPage
-        binding.rvFavorites.adapter?.notifyDataSetChanged()
+//        binding.rvFavorites.adapter?.notifyDataSetChanged()
 
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
@@ -69,23 +68,23 @@ class FavoritePageActivity : AppCompatActivity() {
         outState.putParcelableArrayList(EXTRA_STATE, adapterFavPage.listFavorites)
     }
 
-    override fun onResume() {
-
-        // proses ambil data
-        loadFavoritesAsync()
-        super.onResume()
-    }
+//    override fun onResume() {
+//
+//        // proses ambil data
+//        loadFavoritesAsync()
+//        super.onResume()
+//    }
 
     // function to the button on press
-    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
-        when (menuItem.itemId) {
-            android.R.id.home -> {
-                finish()
-                return true
-            }
-        }
-        return super.onOptionsItemSelected(menuItem)
-    }
+//    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
+//        when (menuItem.itemId) {
+//            android.R.id.home -> {
+//                finish()
+//                return true
+//            }
+//        }
+//        return super.onOptionsItemSelected(menuItem)
+//    }
 
     private fun loadFavoritesAsync() {
         binding.progressbarFavpage.visibility = View.VISIBLE
@@ -93,7 +92,7 @@ class FavoritePageActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.Main) {
 
             val deferredFavorites = async(Dispatchers.IO) {
-                // CONTENT_URI = content://com.dicoding.auliarosyida.githubapp/user
+                // CONTENT_URI = content://com.dicoding.auliarosyida.githubuser/user
                 val cursor = contentResolver.query(CONTENT_URI, null, null, null, null)
                 MappingHelper.mapCursorToArrayList(cursor)
             }

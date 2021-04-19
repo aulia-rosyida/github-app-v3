@@ -1,16 +1,13 @@
 package com.dicoding.auliarosyida.consumerapp.adapter
 
 import android.app.Activity
-import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
-import com.dicoding.auliarosyida.consumerapp.CustomClickListener
 import com.dicoding.auliarosyida.consumerapp.R
-import com.dicoding.auliarosyida.consumerapp.activity.FavAddUpdateActivity
 import com.dicoding.auliarosyida.consumerapp.databinding.ItemRowUserBinding
 import com.dicoding.auliarosyida.consumerapp.entity.User
 
@@ -53,14 +50,14 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
                     tvItemUsername.text = "@${user.username}"
 
                 
-                    itemView.setOnClickListener(CustomClickListener(adapterPosition, object : CustomClickListener.OnItemClickCallback {
-                        override fun onItemClicked(view: View, position: Int) {
-                            val intent = Intent(activity, FavAddUpdateActivity::class.java)
-                            intent.putExtra(FavAddUpdateActivity.EXTRA_POSITION, position)
-                            intent.putExtra(FavAddUpdateActivity.EXTRA_FAVORITE_USER, user)
-                            activity.startActivity(intent)
-                        }
-                    }))
+//                    itemView.setOnClickListener(CustomClickListener(adapterPosition, object : CustomClickListener.OnItemClickCallback {
+//                        override fun onItemClicked(view: View, position: Int) {
+//                            val intent = Intent(activity, FavAddUpdateActivity::class.java)
+//                            intent.putExtra(FavAddUpdateActivity.EXTRA_POSITION, position)
+//                            intent.putExtra(FavAddUpdateActivity.EXTRA_FAVORITE_USER, user)
+//                            activity.startActivity(intent)
+//                        }
+//                    }))
                 }
             }
         }
