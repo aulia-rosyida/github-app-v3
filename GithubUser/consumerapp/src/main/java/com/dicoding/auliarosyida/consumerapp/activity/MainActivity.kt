@@ -1,28 +1,18 @@
 package com.dicoding.auliarosyida.consumerapp.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.consumerapp.R
 import com.dicoding.auliarosyida.consumerapp.adapter.UserAdapter
 import com.dicoding.auliarosyida.consumerapp.databinding.ActivityMainBinding
 import com.dicoding.auliarosyida.consumerapp.entity.User
-import com.dicoding.auliarosyida.consumerapp.BuildConfig
-import com.dicoding.auliarosyida.consumerapp.R
-import com.dicoding.auliarosyida.consumerapp.adapter.UserAdapter
-import com.dicoding.auliarosyida.consumerapp.databinding.ActivityMainBinding
-import com.dicoding.auliarosyida.consumerapp.entity.User
-import com.google.gson.Gson
-import com.loopj.android.http.AsyncHttpClient
-import com.loopj.android.http.AsyncHttpResponseHandler
-import cz.msebera.android.httpclient.Header
-import org.json.JSONObject
 import java.util.*
 
 class MainActivity : AppCompatActivity() {
@@ -52,7 +42,7 @@ class MainActivity : AppCompatActivity() {
 
         listUserAdapter.setOnItemClickCallback(object : UserAdapter.OnItemClickCallback{
             override fun onItemClicked(data: User) {
-                getDetailUserApi(data, data.id)
+//                getDetailUserApi(data, data.id)
             }
         })
 
@@ -101,63 +91,63 @@ class MainActivity : AppCompatActivity() {
 
     private fun getUsersApi() {
         binding.progressBar.visibility = View.VISIBLE
-        val client = AsyncHttpClient()
-       client.addHeader("Authorization", "token ${BuildConfig.GITHUB_TOKEN}")
-       client.addHeader("User-Agent", "request")
-        val url = "https://api.github.com/search/users?q=$tempSearch"
+//        val client = AsyncHttpClient()
+//       client.addHeader("Authorization", "token ${BuildConfig.GITHUB_TOKEN}")
+//       client.addHeader("User-Agent", "request")
+//        val url = "https://api.github.com/search/users?q=$tempSearch"
 
-        client.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
+//        client.get(url, object : AsyncHttpResponseHandler() {
+//            override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
                 // Jika koneksi berhasil
                 binding.progressBar.visibility = View.INVISIBLE
                 // Parsing JSON
-                val result = String(responseBody)
-                getListUsers(result)
-
-            }
-            override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
-                // Jika koneksi gagal
-                binding.progressBar.visibility = View.INVISIBLE
-                val errorMessage = when (statusCode) {
-                    401 -> "$statusCode : Bad Request"
-                    403 -> "$statusCode : Forbidden"
-                    404 -> "$statusCode : Not Found"
-                    else -> "$statusCode : ${error.message}"
-                }
-                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
-            }
-        })
+//                val result = String(responseBody)
+//                getListUsers(result)
+//
+//            }
+//            override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
+//                // Jika koneksi gagal
+//                binding.progressBar.visibility = View.INVISIBLE
+//                val errorMessage = when (statusCode) {
+//                    401 -> "$statusCode : Bad Request"
+//                    403 -> "$statusCode : Forbidden"
+//                    404 -> "$statusCode : Not Found"
+//                    else -> "$statusCode : ${error.message}"
+//                }
+//                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
+//            }
+//        })
     }
 
     private fun getListUsers(response: String) {
         val listUser = ArrayList<User>()
 
-        try{
-            val responseObject = JSONObject(response)
-            val dataArray = responseObject.getJSONArray("items")
+//        try{
+//            val responseObject = JSONObject(response)
+//            val dataArray = responseObject.getJSONArray("items")
+//
+//            val gson = Gson()
+//            for(i in 0 until dataArray.length()){
+//                val dataObject = dataArray.getJSONObject(i)
+//                val data = gson.fromJson(dataObject.toString(), User::class.java)
+//                data.id = i
+//                listUser.add(data)
+//            }
 
-            val gson = Gson()
-            for(i in 0 until dataArray.length()){
-                val dataObject = dataArray.getJSONObject(i)
-                val data = gson.fromJson(dataObject.toString(), User::class.java)
-                data.id = i
-                listUser.add(data)
-            }
-
-            if(listUser.size == 0){
-                users.clear()
-                users.add(dummyUser)
-            }
-            else if(users.size == 0 )users.addAll(listUser)
-            else{
-                users.clear()
-                users.addAll(listUser)
-            }
-            showRecyclerList(users)
-        } catch (e: Exception) {
-            Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
-            e.printStackTrace()
-        }
+//            if(listUser.size == 0){
+//                users.clear()
+//                users.add(dummyUser)
+//            }
+//            else if(users.size == 0 )users.addAll(listUser)
+//            else{
+//                users.clear()
+//                users.addAll(listUser)
+//            }
+//            showRecyclerList(users)
+//        } catch (e: Exception) {
+//            Toast.makeText(this@MainActivity, e.message, Toast.LENGTH_SHORT).show()
+//            e.printStackTrace()
+//        }
     }
     private fun showRecyclerList(usersTemp: MutableList<User>) {
         listUserAdapter = UserAdapter(usersTemp)
@@ -166,37 +156,37 @@ class MainActivity : AppCompatActivity() {
 
 
     private fun getDetailUserApi(aUser: User, position: Int) {
-        val clientDetail = AsyncHttpClient()
-       clientDetail.addHeader("Authorization", "token ${BuildConfig.GITHUB_TOKEN}")
-       clientDetail.addHeader("User-Agent", "request")
-        val url = "https://api.github.com/users/${aUser.username}"
+//        val clientDetail = AsyncHttpClient()
+//       clientDetail.addHeader("Authorization", "token ${BuildConfig.GITHUB_TOKEN}")
+//       clientDetail.addHeader("User-Agent", "request")
+//        val url = "https://api.github.com/users/${aUser.username}"
 
-        clientDetail.get(url, object : AsyncHttpResponseHandler() {
-            override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
-                // Parsing JSON
-                val resultDetail = String(responseBody)
-
-                val gson = Gson()
-                val dataObject = JSONObject(resultDetail)
-                val newUser = gson.fromJson(dataObject.toString(), User::class.java)
-                newUser.id = position
-                showSelectedUser(newUser)
-            }
-            override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
-                // Jika koneksi gagal
-                binding.progressBar.visibility = View.INVISIBLE
-                val errorMessage = when (statusCode) {
-                    401 -> "$statusCode : Bad Request"
-                    403 -> "$statusCode : Forbidden"
-                    404 -> "$statusCode : Not Found"
-                    else -> "$statusCode : ${error.message}"
-                }
-                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
-            }
-        })
+//        clientDetail.get(url, object : AsyncHttpResponseHandler() {
+//            override fun onSuccess(statusCode: Int, headers: Array<Header>, responseBody: ByteArray) {
+//                // Parsing JSON
+//                val resultDetail = String(responseBody)
+//
+//                val gson = Gson()
+//                val dataObject = JSONObject(resultDetail)
+//                val newUser = gson.fromJson(dataObject.toString(), User::class.java)
+//                newUser.id = position
+//                showSelectedUser(newUser)
+//            }
+//            override fun onFailure(statusCode: Int, headers: Array<Header>, responseBody: ByteArray, error: Throwable) {
+//                // Jika koneksi gagal
+//                binding.progressBar.visibility = View.INVISIBLE
+//                val errorMessage = when (statusCode) {
+//                    401 -> "$statusCode : Bad Request"
+//                    403 -> "$statusCode : Forbidden"
+//                    404 -> "$statusCode : Not Found"
+//                    else -> "$statusCode : ${error.message}"
+//                }
+//                Toast.makeText(this@MainActivity, errorMessage, Toast.LENGTH_SHORT).show()
+//            }
+//        })
     }
 
-    private fun showSelectedUser(user: User) {
+    fun showSelectedUser(user: User) {
         val moveWithObjectIntent = Intent(this@MainActivity, TabLayoutActivity::class.java)
         moveWithObjectIntent.putExtra(TabLayoutActivity.EXTRA_USER, user)
         startActivity(moveWithObjectIntent)

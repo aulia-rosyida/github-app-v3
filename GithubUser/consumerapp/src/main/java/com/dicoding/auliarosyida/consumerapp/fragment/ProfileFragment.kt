@@ -1,25 +1,20 @@
 package com.dicoding.auliarosyida.consumerapp.fragment
 
 import android.content.ContentValues
-import android.graphics.Color
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.consumerapp.R
 import com.dicoding.auliarosyida.consumerapp.databinding.FragmentProfileBinding
 import com.dicoding.auliarosyida.consumerapp.db.UserDbContract
-import com.dicoding.auliarosyida.consumerapp.db.UserGithubHelper
 import com.dicoding.auliarosyida.consumerapp.entity.User
-import com.dicoding.auliarosyida.consumerapp.helper.MappingHelper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 import kotlinx.coroutines.launch
 
 class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
@@ -65,19 +60,19 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
         GlobalScope.launch(Dispatchers.Main) {
             val thisContext = requireContext()
 
-            try {
-                val deferredFavorite = async(Dispatchers.IO) {
-                    val cursor = userGithubHelper.queryByUname(uname)
-                    MappingHelper.mapCursorToArrayList(cursor)
-                }
-
-                val favorite = deferredFavorite.await()
-                if (favorite.size > 0) {
-                    user.isFavorited = true
-                    statusFav = true
-                    binding.favBtn.setColorFilter(Color.MAGENTA)
-                }
-            }
+//            try {
+//                val deferredFavorite = async(Dispatchers.IO) {
+//                    val cursor = userGithubHelper.queryByUname(uname)
+//                    MappingHelper.mapCursorToArrayList(cursor)
+//                }
+//
+//                val favorite = deferredFavorite.await()
+//                if (favorite.size > 0) {
+//                    user.isFavorited = true
+//                    statusFav = true
+//                    binding.favBtn.setColorFilter(Color.MAGENTA)
+//                }
+//            }
         }
 
         binding.favBtn.setOnClickListener {
@@ -98,31 +93,31 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
     private fun setStatusFav(status: Boolean) {
         GlobalScope.launch(Dispatchers.Main) {
             val thisContext = requireContext()
-            userGithubHelper = UserGithubHelper.getInstance(thisContext)
-            userGithubHelper.open()
-            try {
-                if (status) {
-                    binding.favBtn.setColorFilter(Color.MAGENTA)
-
-                    var valuesTemp = valueFavoriteUser()
-                    val insertResult = userGithubHelper.insert(valuesTemp)
-                    if (insertResult > 0) {
-                        Toast.makeText(thisContext, "Add to Favorite", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(thisContext, "Failed to Favorite", Toast.LENGTH_SHORT).show()
-                    }
-                } else {
-                    binding.favBtn.setColorFilter(Color.GRAY)
-                    val deleteResult = userGithubHelper.deleteByUname(uname).toLong()
-                    if (deleteResult > 0) {
-                        Toast.makeText(thisContext, "delete from Favorite", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Toast.makeText(thisContext, "Failed to Favorite", Toast.LENGTH_SHORT).show()
-                    }
-                }
-            }finally {
-                userGithubHelper.close()
-            }
+//            userGithubHelper = UserGithubHelper.getInstance(thisContext)
+//            userGithubHelper.open()
+//            try {
+//                if (status) {
+//                    binding.favBtn.setColorFilter(Color.MAGENTA)
+//
+//                    var valuesTemp = valueFavoriteUser()
+//                    val insertResult = userGithubHelper.insert(valuesTemp)
+//                    if (insertResult > 0) {
+//                        Toast.makeText(thisContext, "Add to Favorite", Toast.LENGTH_SHORT).show()
+//                    } else {
+//                        Toast.makeText(thisContext, "Failed to Favorite", Toast.LENGTH_SHORT).show()
+//                    }
+//                } else {
+//                    binding.favBtn.setColorFilter(Color.GRAY)
+//                    val deleteResult = userGithubHelper.deleteByUname(uname).toLong()
+//                    if (deleteResult > 0) {
+//                        Toast.makeText(thisContext, "delete from Favorite", Toast.LENGTH_SHORT).show()
+//                    } else {
+//                        Toast.makeText(thisContext, "Failed to Favorite", Toast.LENGTH_SHORT).show()
+//                    }
+//                }
+//            }finally {
+//                userGithubHelper.close()
+//            }
         }
     }
 
