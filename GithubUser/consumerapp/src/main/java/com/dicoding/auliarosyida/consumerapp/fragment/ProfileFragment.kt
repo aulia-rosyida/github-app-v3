@@ -1,6 +1,5 @@
 package com.dicoding.auliarosyida.consumerapp.fragment
 
-import android.content.ContentValues
 import android.net.Uri
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,11 +10,7 @@ import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.consumerapp.R
 import com.dicoding.auliarosyida.consumerapp.databinding.FragmentProfileBinding
-import com.dicoding.auliarosyida.consumerapp.db.UserDbContract
 import com.dicoding.auliarosyida.consumerapp.entity.User
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.launch
 
 class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
 
@@ -53,36 +48,7 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
         binding.repo.text = getString(R.string.tag_repo)
         binding.follower.text = getString(R.string.tag_followers)
         binding.following.text = getString(R.string.tag_following)
-
-        var statusFav = user.isFavorited
-
-        //untuk cek sudah ada dalam db atau belum
-        GlobalScope.launch(Dispatchers.Main) {
-            val thisContext = requireContext()
-
-//            try {
-//                val deferredFavorite = async(Dispatchers.IO) {
-//                    val cursor = userGithubHelper.queryByUname(uname)
-//                    MappingHelper.mapCursorToArrayList(cursor)
-//                }
-//
-//                val favorite = deferredFavorite.await()
-//                if (favorite.size > 0) {
-//                    user.isFavorited = true
-//                    statusFav = true
-//                    binding.favBtn.setColorFilter(Color.MAGENTA)
-//                }
-//            }
-        }
-
-        binding.favBtn.setOnClickListener {
-            statusFav = !statusFav
-            setStatusFav(statusFav)
-            user.isFavorited = statusFav
-        }
     }
-
-    
 
     override fun onDestroyView() {
         // Do not store the binding instance in a field, if not required.
@@ -90,48 +56,4 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
         _binding = null
     }
 
-    private fun setStatusFav(status: Boolean) {
-        GlobalScope.launch(Dispatchers.Main) {
-            val thisContext = requireContext()
-//            userGithubHelper = UserGithubHelper.getInstance(thisContext)
-//            userGithubHelper.open()
-//            try {
-//                if (status) {
-//                    binding.favBtn.setColorFilter(Color.MAGENTA)
-//
-//                    var valuesTemp = valueFavoriteUser()
-//                    val insertResult = userGithubHelper.insert(valuesTemp)
-//                    if (insertResult > 0) {
-//                        Toast.makeText(thisContext, "Add to Favorite", Toast.LENGTH_SHORT).show()
-//                    } else {
-//                        Toast.makeText(thisContext, "Failed to Favorite", Toast.LENGTH_SHORT).show()
-//                    }
-//                } else {
-//                    binding.favBtn.setColorFilter(Color.GRAY)
-//                    val deleteResult = userGithubHelper.deleteByUname(uname).toLong()
-//                    if (deleteResult > 0) {
-//                        Toast.makeText(thisContext, "delete from Favorite", Toast.LENGTH_SHORT).show()
-//                    } else {
-//                        Toast.makeText(thisContext, "Failed to Favorite", Toast.LENGTH_SHORT).show()
-//                    }
-//                }
-//            }finally {
-//                userGithubHelper.close()
-//            }
-        }
-    }
-
-     private fun valueFavoriteUser() : ContentValues{
-         val values = ContentValues()
-         values.put(UserDbContract.UserDbColumns.COL_USERNAME, user.username)
-         values.put(UserDbContract.UserDbColumns.COL_NAME, user.name)
-         values.put(UserDbContract.UserDbColumns.COL_LOCATION, user.location)
-         values.put(UserDbContract.UserDbColumns.COL_REPOSITORY, user.repository)
-         values.put(UserDbContract.UserDbColumns.COL_COMPANY, user.company)
-         values.put(UserDbContract.UserDbColumns.COL_FOLLOWER, user.followers)
-         values.put(UserDbContract.UserDbColumns.COL_FOLLOWING, user.following)
-         values.put(UserDbContract.UserDbColumns.COL_PHOTO, user.photo)
-
-         return values
-     }
 }
