@@ -30,8 +30,13 @@ class FavContentProvider : ContentProvider() {
     }
 
     override fun onCreate(): Boolean {
-        userGithubHelper = UserGithubHelper.getInstance(context as Context)
-        userGithubHelper.open()
+        try {
+            userGithubHelper = UserGithubHelper.getInstance(context as Context)
+            userGithubHelper.open()
+        }catch (e : Exception){
+            AsyncHttpClient.log.d("CONTENT PROVIDER - QUERY", "masuk exception $e")
+                e.printStackTrace()
+        }
         return true
     }
 
