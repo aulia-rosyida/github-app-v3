@@ -1,15 +1,14 @@
 package com.dicoding.auliarosyida.consumerapp.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
-import android.view.inputmethod.EditorInfo
 import android.widget.Toast
-import com.dicoding.auliarosyida.consumerapp.BuildConfig
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.auliarosyida.consumerapp.BuildConfig
 import com.dicoding.auliarosyida.consumerapp.R
 import com.dicoding.auliarosyida.consumerapp.adapter.UserAdapter
 import com.dicoding.auliarosyida.consumerapp.databinding.ActivityMainBinding
@@ -52,20 +51,20 @@ class MainActivity : AppCompatActivity() {
             }
         })
 
-        binding.searchButton.setOnClickListener {
-            tempSearch = binding.textInputSearch.text.toString()
-            getUsersApi()
-            Toast.makeText(this@MainActivity, "You search $tempSearch.", Toast.LENGTH_SHORT).show()
-        }
-
-        binding.textInputSearch.setOnEditorActionListener { _, actionId, _ ->
-            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
-                tempSearch = binding.textInputSearch.text.toString()
-                getUsersApi()
-                Toast.makeText(this@MainActivity, "You search $tempSearch.", Toast.LENGTH_SHORT).show()
-            }
-            true
-        }
+//        binding.searchButton.setOnClickListener {
+//            tempSearch = binding.textInputSearch.text.toString()
+//            getUsersApi()
+//            Toast.makeText(this@MainActivity, "You search $tempSearch.", Toast.LENGTH_SHORT).show()
+//        }
+//
+//        binding.textInputSearch.setOnEditorActionListener { _, actionId, _ ->
+//            if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+//                tempSearch = binding.textInputSearch.text.toString()
+//                getUsersApi()
+//                Toast.makeText(this@MainActivity, "You search $tempSearch.", Toast.LENGTH_SHORT).show()
+//            }
+//            true
+//        }
 
     }
 
