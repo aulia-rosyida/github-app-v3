@@ -4,10 +4,10 @@ import android.content.ContentValues
 import android.graphics.Color
 import android.os.Bundle
 import android.view.LayoutInflater
-import androidx.fragment.app.Fragment
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.fragment.app.Fragment
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.githubuser.R
@@ -78,6 +78,8 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
                     statusFav = true
                     binding.favBtn.setColorFilter(Color.MAGENTA)
                 }
+            }catch (e : Exception){
+                e.printStackTrace()
             }finally {
                 userGithubHelper.close()
             }
@@ -123,6 +125,8 @@ class ProfileFragment (detailUser: User) : Fragment(R.layout.fragment_profile) {
                         Toast.makeText(thisContext, "Failed to Favorite", Toast.LENGTH_SHORT).show()
                     }
                 }
+            }catch (e : Exception){
+                e.printStackTrace()
             }finally {
                 userGithubHelper.close()
             }

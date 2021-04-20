@@ -1,10 +1,10 @@
 package com.dicoding.auliarosyida.githubuser.activity
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.view.View
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.dicoding.auliarosyida.githubuser.adapter.FavoriteAdapter
 import com.dicoding.auliarosyida.githubuser.databinding.ActivityFavoritePageBinding
@@ -69,24 +69,30 @@ class FavoritePageActivity : AppCompatActivity() {
         GlobalScope.launch(Dispatchers.Main) {
             val userGithubHelper = UserGithubHelper.getInstance(applicationContext)
             userGithubHelper.open()
-            val deferredFavorites = async(Dispatchers.IO) {
-                val cursor = userGithubHelper.queryAll()
-                MappingHelper.mapCursorToArrayList(cursor)
+
+            try {
+                val deferredFavorites = async(Dispatchers.IO) {
+                    val cursor = userGithubHelper.queryAll()
+                    MappingHelper.mapCursorToArrayList(cursor)
+                }
+                val favorites = deferredFavorites.await()
+                if (favorites.size > 0) {
+                    adapterFavPage.listFavorites = favorites
+                    binding.progressbarFavpage.visibility = View.INVISIBLE
+                    binding.rvFavorites.adapter?.notifyDataSetChanged()
+                } else {
+                    var listTemp = ArrayList<User>()
+                    listTemp.add(dummyFavorite)
+                    binding.progressbarFavpage.visibility = View.INVISIBLE
+                    adapterFavPage.listFavorites = listTemp
+                    binding.rvFavorites.adapter?.notifyDataSetChanged()
+                    showSnackbarMessage("Tidak ada data saat ini")
+                }
+            }catch (e : Exception){
+                e.printStackTrace()
+            }finally {
+                userGithubHelper.close()
             }
-            val favorites = deferredFavorites.await()
-            if (favorites.size > 0) {
-                adapterFavPage.listFavorites = favorites
-                binding.progressbarFavpage.visibility = View.INVISIBLE
-                binding.rvFavorites.adapter?.notifyDataSetChanged()
-            } else {
-                var listTemp = ArrayList<User>()
-                listTemp.add(dummyFavorite)
-                binding.progressbarFavpage.visibility = View.INVISIBLE
-                adapterFavPage.listFavorites = listTemp
-                binding.rvFavorites.adapter?.notifyDataSetChanged()
-                showSnackbarMessage("Tidak ada data saat ini")
-            }
-            userGithubHelper.close()
         }
     }
     private fun showSnackbarMessage(message: String) {
