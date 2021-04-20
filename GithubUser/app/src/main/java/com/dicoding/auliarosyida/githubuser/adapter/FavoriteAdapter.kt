@@ -9,8 +9,8 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.githubuser.CustomClickListener
-import com.dicoding.auliarosyida.githubuser.activity.FavAddUpdateActivity
 import com.dicoding.auliarosyida.githubuser.R
+import com.dicoding.auliarosyida.githubuser.activity.FavAddUpdateActivity
 import com.dicoding.auliarosyida.githubuser.databinding.ItemRowUserBinding
 import com.dicoding.auliarosyida.githubuser.entity.User
 
@@ -69,5 +69,11 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
         this.listFavorites.removeAt(position)
         notifyItemRemoved(position)
         notifyItemRangeChanged(position, this.listFavorites.size)
+    }
+
+    // 3 metode untuk menambahkan, memperbaharui dan menghapus Item di RecyclerView.
+    fun addItem(user: User) {
+        this.listFavorites.add(user)
+        notifyItemInserted(this.listFavorites.size - 1)
     }
 }
