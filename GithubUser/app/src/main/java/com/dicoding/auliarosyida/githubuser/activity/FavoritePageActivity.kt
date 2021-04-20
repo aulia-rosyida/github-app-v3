@@ -12,6 +12,7 @@ import com.dicoding.auliarosyida.githubuser.db.UserGithubHelper
 import com.dicoding.auliarosyida.githubuser.entity.User
 import com.dicoding.auliarosyida.githubuser.helper.MappingHelper
 import com.google.android.material.snackbar.Snackbar
+import com.loopj.android.http.AsyncHttpClient
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
@@ -89,10 +90,12 @@ class FavoritePageActivity : AppCompatActivity() {
                     showSnackbarMessage("Tidak ada data saat ini")
                 }
             }catch (e : Exception){
+                AsyncHttpClient.log.d("${this@FavoritePageActivity}", e.toString())
                 e.printStackTrace()
-            }finally {
-                userGithubHelper.close()
             }
+           finally {
+               userGithubHelper.close()
+           }
         }
     }
     private fun showSnackbarMessage(message: String) {
