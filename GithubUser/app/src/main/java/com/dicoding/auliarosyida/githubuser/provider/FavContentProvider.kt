@@ -10,6 +10,7 @@ import com.dicoding.auliarosyida.githubuser.db.UserDbContract.AUTHORITY
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract.UserDbColumns.Companion.CONTENT_URI
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract.UserDbColumns.Companion.TABLE_NAME
 import com.dicoding.auliarosyida.githubuser.db.UserGithubHelper
+import com.loopj.android.http.AsyncHttpClient
 
 class FavContentProvider : ContentProvider() {
 
@@ -36,6 +37,7 @@ class FavContentProvider : ContentProvider() {
 
     override fun query(uri: Uri, projection: Array<String>?, selection: String?,
                        selectionArgs: Array<String>?, sortOrder: String?): Cursor? {
+        AsyncHttpClient.log.d("CONTENT PROVIDER - QUERY", "masuk query ${sUriMatcher.match(uri)}")
         return when (sUriMatcher.match(uri)) {
             FAV -> userGithubHelper.queryAll()
             FAV_ID -> userGithubHelper.queryById(uri.lastPathSegment.toString())

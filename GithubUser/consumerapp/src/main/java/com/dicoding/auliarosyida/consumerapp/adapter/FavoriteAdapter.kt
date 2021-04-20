@@ -10,11 +10,13 @@ import com.bumptech.glide.request.RequestOptions
 import com.dicoding.auliarosyida.consumerapp.R
 import com.dicoding.auliarosyida.consumerapp.databinding.ItemRowUserBinding
 import com.dicoding.auliarosyida.consumerapp.entity.User
+import com.loopj.android.http.AsyncHttpClient
 
 class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<FavoriteAdapter.FavoriteViewHolder>() {
 
     var listFavorites = ArrayList<User>()
         set(listFavorites) {
+            AsyncHttpClient.log.d(activity.toString(), "set list fav nya niy")
             if (listFavorites.size > 0) {
                 this.listFavorites.clear()
             }
@@ -23,6 +25,7 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
         }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): FavoriteViewHolder {
+        println("masuk ke onCreate ViewHolder fav adapter niyyy")
         val view = LayoutInflater.from(parent.context).inflate(R.layout.item_row_user, parent, false)
         return FavoriteViewHolder(view)
     }
