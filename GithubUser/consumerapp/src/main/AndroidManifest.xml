@@ -2,6 +2,8 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.dicoding.auliarosyida.consumerapp">
 
+    <uses-permission android:name="android.permission.INTERNET" />
+
     <uses-permission android:name="com.dicoding.githubuser.READ_DATABASE" />
     <uses-permission android:name="com.dicoding.githubuser.WRITE_DATABASE" />
 
