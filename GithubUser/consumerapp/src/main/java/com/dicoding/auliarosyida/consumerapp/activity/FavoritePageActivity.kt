@@ -84,22 +84,26 @@ class FavoritePageActivity : AppCompatActivity() {
 
         GlobalScope.launch(Dispatchers.Main) {
 
-            val deferredFavorites = async(Dispatchers.IO) {
-                // CONTENT_URI = content://com.dicoding.auliarosyida.githubuser/user
-                val cursor = contentResolver.query(CONTENT_URI, null, null, null, null)
-                MappingHelper.mapCursorToArrayList(cursor)
-            }
+            try {
+                val deferredFavorites = async(Dispatchers.IO) {
+                    // CONTENT_URI = content://com.dicoding.auliarosyida.githubuser/user
+                    val cursor = contentResolver.query(CONTENT_URI, null, null, null, null)
+                    MappingHelper.mapCursorToArrayList(cursor)
+                }
 
-            val favorites = deferredFavorites.await()
-            if (favorites.size > 0) {
-                adapterFavPage.listFavorites = favorites
-            } else {
-                var listTemp = ArrayList<User>()
-                listTemp.add(dummyFavorite)
-                adapterFavPage.listFavorites = listTemp
-                showSnackbarMessage("Tidak ada data saat ini")
+                val favorites = deferredFavorites.await()
+                if (favorites.size > 0) {
+                    adapterFavPage.listFavorites = favorites
+                } else {
+                    var listTemp = ArrayList<User>()
+                    listTemp.add(dummyFavorite)
+                    adapterFavPage.listFavorites = listTemp
+                    showSnackbarMessage("Tidak ada data saat ini")
+                }
+                binding.progressbarFavpage.visibility = View.INVISIBLE
+            }catch (e : Exception){
+                e.printStackTrace()
             }
-            binding.progressbarFavpage.visibility = View.INVISIBLE
         }
     }
 
