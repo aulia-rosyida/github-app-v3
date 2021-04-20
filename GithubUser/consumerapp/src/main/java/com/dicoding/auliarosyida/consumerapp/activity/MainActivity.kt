@@ -58,26 +58,8 @@ class MainActivity : AppCompatActivity() {
         }
 //        binding.rvFavorites.adapter?.notifyDataSetChanged()
 
-//        supportActionBar?.setDisplayHomeAsUpEnabled(true)
     }
 
-//    override fun onResume() {
-//
-//        // proses ambil data
-//        loadFavoritesAsync()
-//        super.onResume()
-//    }
-
-    // function to the button on press
-//    override fun onOptionsItemSelected(menuItem: MenuItem): Boolean {
-//        when (menuItem.itemId) {
-//            android.R.id.home -> {
-//                finish()
-//                return true
-//            }
-//        }
-//        return super.onOptionsItemSelected(menuItem)
-//    }
 
     private fun loadFavoritesAsync() {
         binding.progressBar.visibility = View.VISIBLE
