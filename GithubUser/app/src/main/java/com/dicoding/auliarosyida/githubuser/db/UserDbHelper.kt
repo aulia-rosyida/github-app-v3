@@ -14,7 +14,7 @@ import com.dicoding.auliarosyida.githubuser.db.UserDbContract.UserDbColumns.Comp
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract.UserDbColumns.Companion.TABLE_NAME
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract.UserDbColumns.Companion._ID
 
-class UserDbHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
+class UserDbHelper (context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, DbCursorFactory(), DATABASE_VERSION) {
 
     companion object {
         private const val DATABASE_NAME = "githubuser"
