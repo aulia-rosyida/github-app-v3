@@ -7,8 +7,8 @@ import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract.UserDbColumns.Companion.COL_USERNAME
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract.UserDbColumns.Companion.TABLE_NAME
-import java.sql.SQLException
 import com.dicoding.auliarosyida.githubuser.db.UserDbContract.UserDbColumns.Companion._ID
+import java.sql.SQLException
 
 class UserGithubHelper (context: Context) {
 
@@ -36,7 +36,7 @@ class UserGithubHelper (context: Context) {
     }
     fun close() {
         userDbHelper.close()
-        if (db.isOpen)
+        if (db != null && db.isOpen)
             db.close()
     }
 
