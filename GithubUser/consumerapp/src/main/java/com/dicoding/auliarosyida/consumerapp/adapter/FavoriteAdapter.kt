@@ -65,6 +65,18 @@ class FavoriteAdapter(private val activity: Activity): RecyclerView.Adapter<Favo
             }
         }
     }
+
+    // 3 metode untuk menambahkan, memperbaharui dan menghapus Item di RecyclerView.
+    fun addItem(fav: User) {
+        this.listFavorites.add(fav)
+        notifyItemInserted(this.listFavorites.size - 1)
+    }
+
+    fun updateItem(position: Int, fav: User) {
+        this.listFavorites[position] = fav
+        notifyItemChanged(position, fav)
+    }
+
     fun removeItem(position: Int) {
         this.listFavorites.removeAt(position)
         notifyItemRemoved(position)
